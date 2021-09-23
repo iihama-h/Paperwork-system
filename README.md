@@ -24,8 +24,3 @@ PostgreSQL                     12.2
 
 ## 開発OS
 Microsoft Windows 10 Home
-"# paperwork-system" 
-"# paperwork-system" 
-"# paperwork-system" 
-"# Paperwork-system" 
-"# paperwork-system" 
