@@ -1,0 +1,26 @@
+{% extends "sidebar.html" %}
+{% load static %}
+
+{% block title %}Client　Registration{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/form_width.css' %}">
+{% endblock %}
+
+{% block contents %}
+    <form method="post" class="my-3">
+        {% csrf_token %}
+        {{form.non_field_errors}}
+
+        <table class="table table-striped">
+          {% for field in form %}
+          <tr>
+            <th style="width: 10%">{{ field.label_tag }}</th>
+            <td>{{ field }}</td>
+          </tr>
+          {% endfor%}
+        </table>
+
+        <button type="submit" class="btn btn-success">登録</button>
+    </form>
+{% endblock %}

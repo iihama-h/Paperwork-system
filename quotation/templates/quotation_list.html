@@ -1,0 +1,77 @@
+{% extends "sidebar.html" %}
+{% load static %}
+
+{% block title %}Quotation　List{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/list.css' %}">
+{% endblock %}
+
+{% block contents %}
+  <!-- 検索 -->
+
+{{ search_form.media }}
+  <form method="post" class="form-inline my-3">
+        {% csrf_token %}
+        {% for field in search_form %}
+          {{ field.label }}
+          {{ field }}
+        {% endfor %}
+        <input type="submit" id="button" name="button" value="検索" class="ml-2">
+  </form>
+
+
+  <!-- 一覧結果 -->
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col" tyle="width: 10%" class="text-center">見積書ID</th>
+        <th scope="col" tyle="width: 20%" class="text-center">顧客名</th>
+        <th scope="col" class="text-center">件名</th>
+      </tr>
+    </thead>
+    {% for item in object_list %}
+      <tr class="clickable-row" data-href="{% url 'quotation:reference' item.pk %}">
+        <td style="width: 10%" class="text-center">{{ item.quotation_id }}</td>
+        <td style="width: 20%">{{ item.client_id }}</td>
+        <td>{{ item.title }}</td>
+      </tr>
+    {% empty %}
+      <p>登録がありません。</p>
+    {% endfor %}
+   </table>
+
+
+  <!--ページネーション-->
+  {% if is_paginated %}
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{page_obj.previous_page_number}}">前へ</a>
+        </li>
+      {% endif %}
+      {% for page_num in page_obj.paginator.page_range %}
+        {% if page_obj.number == page_num %}
+          <li class="page-item active"><a class="page-link" href="#">{{page_num}}</a></li>
+        {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{page_num}}">{{page_num}}</a></li>
+        {% endif %}
+      {% endfor %}
+      {% if page_obj.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{page_obj.next_page_number}}">次へ</a>
+        </li>
+      {% endif %}
+    </ul>
+  {% endif %}
+
+  <script>
+    $(function($) {
+      $(".clickable-row").css("cursor","pointer").click(function() {
+        location.href = $(this).data("href");
+      });
+    });
+  </script>
+
+
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends "quotation_js.html" %}
+{% load static %}
+
+{% block title %}Quotation　Registration{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/form_width.css' %}">
+{% endblock %}
+
+{% block contents %}
+    <form method="post" class="my-3" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.non_field_errors}}
+
+        <table class="table table-striped" id="suggest">
+          <tr>
+          <th style="width: 10%">{{ form.client_id.label_tag }}</th>
+          <td> <div id="client_text" class="mb-3"></div> {{ form.client_id }} </td>
+          </tr>
+
+          <tr>
+          <th style="width: 10%">{{ form.expiry.label_tag }}</th>
+          <td>{{ form.expiry }}</td>
+          </tr>
+
+          <tr>
+          <th style="width: 10%">{{ form.recipient.label_tag }}</th>
+          <td>{{ form.recipient }}</td>
+          </tr>
+
+          <tr>
+          <th style="width: 10%">{{ form.title.label_tag }}</th>
+          <td>{{ form.title }}</td>
+          </tr>
+
+          <tr>
+          <th style="width: 10%">{{ form.delivery_time.label_tag }}</th>
+          <td>{{ form.delivery_time }}</td>
+          </tr>
+
+          <tr>
+          <th style="width: 10%">{{ form.delivery_location.label_tag }}</th>
+          <td>{{ form.delivery_location }}</td>
+          </tr>
+
+          <tr>
+          <th style="width: 10%">{{ form.delivery_method.label_tag }}</th>
+          <td>{{ form.delivery_method }}</td>
+          </tr>
+
+          <tr>
+          <th style="width: 10%">{{ form.payment_condition.label_tag }}</th>
+          <td>{{ form.payment_condition }}</td>
+          </tr>
+
+          <tr>
+          <th style="width: 10%">{{ form.remark.label_tag }}</th>
+          <td>{{ form.remark }}</td>
+          </tr>
+        </table>
+
+        <table class="table table-striped" id="quotations_details_form">
+          {{ Quotations_details_form.management_form }}
+          {% for field in Quotations_details_form %}
+          <tr>
+            <th style="width: 10%">{{ field.label_tag }}</th>
+            <td>{{ field }}</td>
+          </tr>
+          {% endfor%}
+        </table>
+
+        <p>
+          <button id="increment" type="button" class="btn btn-info">+</button>
+          <button id="decrement" type="button" class="btn btn-info">-</button>
+        </p>
+
+        <table class="mb-4">
+          {{ Quotations_attached_file_form.management_form }}
+          {% for field in Quotations_attached_file_form %}
+          <tr>
+            <th style="width: 10%">{{ field.label_tag }}</th>
+            <td>{{ field }}</td>
+          </tr>
+          {% endfor%}
+        </table>
+
+        <button type="submit" class="btn btn-success">登録</button>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "sidebar.html" %}
+{% load static %}
+
+{% block title %}Client　Reference{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/form_width.css' %}">
+{% endblock %}
+
+{% block contents %}
+
+<form method="post" class="my-3">
+  {% csrf_token %}
+
+  <table class="table table-striped">
+    <tr>
+      <th style="width: 10%">顧客ID:</th>
+      <td>{{object.client_id}}</td>
+    </tr>
+    {% for field in form %}
+    <tr>
+      <th style="width: 10%">{{ field.label_tag }}</th>
+      <td>{{ field }}</td>
+    </tr>
+    {% endfor%}
+  </table>
+
+  <button type="submit" class="btn btn-primary">更新</button>
+  <a href="{% url 'client:delete' object.pk %}" class="btn btn-warning">削除</a>
+</form>
+
+{% endblock %}

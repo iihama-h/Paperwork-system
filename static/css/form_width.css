@@ -1,0 +1,7 @@
+input[id^="id_"] {
+  width: 100%;
+}
+
+textarea[id^="id_"] {
+  width: 100%;
+}

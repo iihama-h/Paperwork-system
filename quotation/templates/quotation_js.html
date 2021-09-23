@@ -1,0 +1,176 @@
+{% extends "sidebar.html" %}
+{% load static %}
+
+{% block quotation_js %}
+<link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+<script src="{% static 'js/jquery-ui.js' %}"></script>
+
+<script>
+  //quotation_registration, quotation_reference
+  //「+」 と　「-」　ボタンの機能
+  //Quotations_details_formSetの数を可変する
+  $(function(){
+      var totalManageElement = $('input#id_quotations_details_set-TOTAL_FORMS');
+      var currentFileCount = parseInt(totalManageElement.val());
+      $('button#increment').on('click', function(){
+          var add_tbody = $('<tbody>');
+          $(add_tbody).append('<tr style="display: none"></tr>');
+          $(add_tbody).append(create_merchandiseElement(currentFileCount));
+          $(add_tbody).append(create_merchandise_descriptionElement(currentFileCount));
+          $(add_tbody).append(create_quantityElement(currentFileCount));
+          $(add_tbody).append(create_unitElement(currentFileCount));
+          $(add_tbody).append(create_sales_unit_priceElement(currentFileCount));
+          $(add_tbody).append(create_purchase_unit_priceElement(currentFileCount));
+          $('#quotations_details_form').append(add_tbody);
+          currentFileCount += 1;
+          totalManageElement.attr('value', currentFileCount);
+      });
+      $('button#decrement').on('click', function(){
+          // 1個の時は何もしない
+          if (currentFileCount === 1){
+            return true
+          }
+          currentFileCount -= 1;
+          //親要素のtbodyを取得
+          var latest_tbody = $('input#id_quotations_details_set-' + currentFileCount + '-merchandise').parent().parent().parent();
+          //削除
+          latest_tbody.remove();
+          totalManageElement.attr('value', currentFileCount);
+      });
+  });
+  function create_merchandiseElement(currentFileCount) {
+      var objects = $('<tr>');
+      objects.append($('<th>商品名：</th>'));
+      var td_objects = $('<td>');
+      var merchandiseElement = $('<input>', {
+          type: 'text',
+          name: 'quotations_details_set-' + currentFileCount + '-merchandise',
+          id: 'id_quotations_details_set-' + currentFileCount + '-merchandise',
+      });
+      td_objects.append(merchandiseElement);
+      objects.append(td_objects);
+      return objects
+  }
+  function create_merchandise_descriptionElement(currentFileCount) {
+      var objects = $('<tr>');
+      objects.append($('<th>商品明細：</th>'));
+      var td_objects = $('<td>');
+      var merchandise_descriptionElement = $('<textarea>', {
+          cols: 40,
+          rows: 10,
+          name: 'quotations_details_set-' + currentFileCount + '-merchandise_description',
+          id: 'id_quotations_details_set-' + currentFileCount + '-merchandise_description',
+      });
+      td_objects.append(merchandise_descriptionElement);
+      objects.append(td_objects);
+      return objects
+  }
+  function create_quantityElement(currentFileCount) {
+      var objects = $('<tr>');
+      objects.append($('<th>数量：</th>'));
+      var td_objects = $('<td>');
+      var quantityElement = $('<input>', {
+          type: 'number',
+          value: 0,
+          name: 'quotations_details_set-' + currentFileCount + '-quantity',
+          id: 'id_quotations_details_set-' + currentFileCount + '-quantity',
+          required: true,
+      });
+      td_objects.append(quantityElement);
+      objects.append(td_objects);
+      return objects
+  }
+  function create_unitElement(currentFileCount) {
+      var objects = $('<tr>');
+      objects.append($('<th>単位：</th>'));
+      var td_objects = $('<td>');
+      var unitElement = $('<input>', {
+          type: 'text',
+          maxlength: 255,
+          name: 'quotations_details_set-' + currentFileCount + '-unit',
+          id: 'id_quotations_details_set-' + currentFileCount + '-unit',
+      });
+      td_objects.append(unitElement);
+      objects.append(td_objects);
+      return objects
+  }
+  function create_sales_unit_priceElement(currentFileCount) {
+      var objects = $('<tr>');
+      objects.append($('<th>売上単価：</th>'));
+      var td_objects = $('<td>');
+      var sales_unit_priceElement = $('<input>', {
+          type: 'number',
+          value: 0,
+          name: 'quotations_details_set-' + currentFileCount + '-sales_unit_price',
+          id: 'id_quotations_details_set-' + currentFileCount + '-sales_unit_price',
+          required: true,
+      });
+      td_objects.append(sales_unit_priceElement);
+      objects.append(td_objects);
+      return objects
+  }
+  function create_purchase_unit_priceElement(currentFileCount) {
+      var objects = $('<tr>');
+      objects.append($('<th>仕入単価：</th>'));
+      var td_objects = $('<td>');
+      var purchase_unit_priceElement = $('<input>', {
+          type: 'number',
+          value: 0,
+          name: 'quotations_details_set-' + currentFileCount + '-purchase_unit_price',
+          id: 'id_quotations_details_set-' + currentFileCount + '-purchase_unit_price',
+          required: true,
+      });
+      var is_activeElement = $('<input>', {
+          type: 'hidden',
+          value: 'True',
+          name: 'quotations_details_set-' + currentFileCount + '-is_active',
+          id: 'id_quotations_details_set-' + currentFileCount + '-is_active',
+      });
+      var item_idElement = $('<input>', {
+          type: 'hidden',
+          name: 'quotations_details_set-' + currentFileCount + '-item_id',
+          id: 'id_quotations_details_set-' + currentFileCount + '-item_id',
+      });
+      var quotation_idElement = $('<input>', {
+          type: 'hidden',
+          value: 0,
+          name: 'quotations_details_set-' + currentFileCount + '-quotation_id',
+          id: 'id_quotations_details_set-' + currentFileCount + '-quotation_id',
+      });
+      td_objects.append(purchase_unit_priceElement);
+      objects.append(td_objects);
+      return objects
+  }
+
+
+  //quotation_registration, quotation_reference
+  //顧客フィールドのサジェスト機能
+  $(function() {
+      const client_list = [
+          {% for client in clients %}
+            { label:'{{client.name}}', value:'{{client.client_id}}', display:'{{client.name}}'},
+            {% if client.name_kana != None %}
+              { label:'{{client.name_kana}}', value:'{{client.client_id}}', display:'{{client.name}}'},
+            {% endif %}
+          {% endfor %}
+      ];
+      //初期表示
+      let client_id = parseInt($('#id_client_id').val());
+                  let init_name;
+                  {% for client in initial_display_clients %}
+                      if ({{ client.client_id }} == client_id) {
+                          init_name = '{{ client.name }}'
+                      }
+                  {% endfor %}
+                  $('#client_text').text(init_name);
+
+      $( '#id_client_id' ).autocomplete({
+          source: client_list,
+          select: function (event, ui) {
+              const client_text = ui.item.display;
+              $('#client_text').text(client_text)
+          }
+      });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,134 @@
+{% extends "quotation_js.html" %}
+{% load static %}
+
+{% block title %}Quotation　Reference{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/form_width.css' %}">
+{% endblock %}
+
+{% block contents %}
+  <form method="post" class="my-3" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <table class="table table-striped">
+    <tr>
+    <th style="width: 10%">見積書ID:</th>
+    <td>{{ object.quotation_id }}</td>
+    </tr>
+
+    <tr>
+    <th style="width: 10%">{{ form.client_id.label_tag }}</th>
+    <td> <div id="client_text" class="mb-3"></div> {{ form.client_id }} </td>
+    </tr>
+
+    <tr>
+    <th style="width: 10%">{{ form.expiry.label_tag }}</th>
+    <td>{{ form.expiry }}</td>
+    </tr>
+
+    <tr>
+    <th style="width: 10%">{{ form.recipient.label_tag }}</th>
+    <td>{{ form.recipient }}</td>
+    </tr>
+
+    <tr>
+    <th style="width: 10%">{{ form.title.label_tag }}</th>
+    <td>{{ form.title }}</td>
+    </tr>
+
+    <tr>
+    <th style="width: 10%">{{ form.delivery_time.label_tag }}</th>
+    <td>{{ form.delivery_time }}</td>
+    </tr>
+
+    <tr>
+    <th style="width: 10%">{{ form.delivery_location.label_tag }}</th>
+    <td>{{ form.delivery_location }}</td>
+    </tr>
+
+    <tr>
+    <th style="width: 10%">{{ form.delivery_method.label_tag }}</th>
+    <td>{{ form.delivery_method }}</td>
+    </tr>
+
+    <tr>
+    <th style="width: 10%">{{ form.payment_condition.label_tag }}</th>
+    <td>{{ form.payment_condition }}</td>
+    </tr>
+
+    <tr>
+    <th style="width: 10%">{{ form.remark.label_tag }}</th>
+    <td>{{ form.remark }}</td>
+    </tr>
+  </table>
+
+  <table class="table table-striped" id="quotations_details_form">
+    {{ Quotations_details_form.management_form }}
+    {% for field in Quotations_details_form %}
+    <tr>
+      <th style="width: 10%">{{ field.label_tag }}</th>
+      <td>{{ field }}</td>
+    </tr>
+    {% endfor%}
+  </table>
+
+  <p>
+    <button id="increment" type="button" class="btn btn-info">+</button>
+    <button id="decrement" type="button" class="btn btn-info">-</button>
+  </p>
+
+  <table class="table table-striped">
+    <tr>
+      <td class="font-weight-bold" style="width: 3%">小計：</td>
+      <td style="width: 25%">　{{ sub_total }}</td>
+    </tr>
+    <tr>
+      <td class="font-weight-bold" style="width: 3%">消費税：</td>
+      <td style="width: 25%">　{{ consumption_tax }}</td>
+    </tr>
+    <tr>
+      <td class="font-weight-bold" style="width: 3%">合計：</td>
+      <td style="width: 25%">&yen;  {{ total_amount }}</td>
+    </tr>
+    <tr>
+      <td class="font-weight-bold" style="width: 3%">粗利：</td>
+      <td style="width: 25%">　{{ gross_profit }}</td>
+    </tr>
+    <tr>
+      <td class="font-weight-bold" style="width: 3%">粗利率：</td>
+      <td style="width: 25%">　{{ gross_margin }} %</td>
+    </tr>
+</table>
+
+  {% if Quotations_attached_file_form_type == "attached_file_reference" %}
+  <table class="mb-4">
+      {{ Quotations_attached_file_form.management_form }}
+      {% for field in Quotations_attached_file_form %}
+      <tr>
+        <td class="font-weight-bold" style="width: 10%">添付ファイル：</td>
+        <td style="width: 25%"><a href="{% url 'quotation:filedownload' object.pk %}">{{ field }}</a></td>
+        <td><a href="{% url 'quotation:filedelete' object.pk %}" class="btn btn-dark btn-sm">ファイル削除</a></td>
+      </tr>
+      {% endfor%}
+  </table>
+  {% endif %}
+
+  {% if Quotations_attached_file_form_type == "attached_file_registration" %}
+  <table class="mb-4">
+    {{ Quotations_attached_file_form.management_form }}
+    {% for field in Quotations_attached_file_form %}
+    <tr>
+      <th style="width: 10%">{{ field.label_tag }}</th>
+      <td>{{ field }}</td>
+    </tr>
+    {% endfor%}
+  </table>
+  {% endif %}
+
+  <button type="submit" class="btn btn-primary">更新</button>
+  <a href="{% url 'quotation:delete' object.pk %}" class="btn btn-warning">削除</a>
+  <a href="{% url 'quotation:exceldownload' object.pk %}" class="btn btn-success">Excel</a>
+</form>
+
+{% endblock %}

@@ -1,0 +1,81 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  list-style: none;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  font: 15px/1.25 'Alef';
+  color: #111;
+}
+
+form {
+  margin: 70px auto;
+  background: #b1bbc7;
+  width: 347px;
+  text-align: center;
+  padding: 40px;
+  border-radius: 10px;
+}
+
+
+input {
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0,0.3);
+  display: block;
+  width: 269px;
+  padding: 15px;
+  margin-bottom: 10px;
+  outline: none;
+  border-radius: 10px;
+}
+
+input:focus {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-input-placeholder {
+   color: rgba(225, 225, 225, 0.4);
+}
+
+:-moz-placeholder {
+   color: rgba(225, 225, 225, 0.4);
+}
+
+::-moz-placeholder {
+   color: rgba(225, 225, 225, 0.4);
+}
+
+:-ms-input-placeholder {
+   color: rgba(225, 225, 225, 0.4);
+}
+
+button {
+  position: relative;
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding: 17px;
+  width: 270px;
+  font-size: 1.2em;
+  background: #f29164;
+  color: #f4f4f4;
+  box-shadow: 0px 3px 0px #ab4b47;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+button:active {
+  top: 3px;
+  box-shadow: none;
+}
+
+p{
+  margin-bottom: 15px;
+  font-size: 90%;
+}

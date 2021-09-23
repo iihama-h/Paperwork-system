@@ -1,0 +1,13 @@
+{% extends "sidebar.html" %}
+{% load static %}
+
+{% block title %}delete　Registration{% endblock %}
+
+{% block contents %}
+<form method="post">
+  {% csrf_token %}
+  <p>削除しますか?</p>
+    <button type="submit" class="btn btn-warning">削除</button>
+    <a href="{% url 'client:reference' object.pk %}" class="btn btn-dark">キャンセル</a>
+</form>
+{% endblock %}

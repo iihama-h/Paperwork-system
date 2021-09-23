@@ -1,0 +1,82 @@
+{% extends "html_templates.html" %}
+{% load static %}
+
+{% block sidebarhead %}
+<link rel="stylesheet" href="{% static 'css/simple-sidebar.css' %}">
+{% endblock %}
+
+{% block sidebar %}
+
+    <div class="d-flex" id="wrapper">
+
+      <!-- Sidebar -->
+      <div class="bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">見積システム </div>
+        <div class="list-group list-group-flush">
+          <a href="http://127.0.0.1:8000/client/registration/" class="list-group-item list-group-item-action bg-light">顧客　登録</a>
+          <a href="http://127.0.0.1:8000/client/list/" class="list-group-item list-group-item-action bg-light">顧客　一覧</a>
+          <a href="http://127.0.0.1:8000/quotation/registration/" class="list-group-item list-group-item-action bg-light">見積　登録</a>
+          <a href="http://127.0.0.1:8000/quotation/list/" class="list-group-item list-group-item-action bg-light">見積　一覧</a>
+        </div>
+      </div>
+      <!-- /#sidebar-wrapper -->
+
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+          <button class="btn btn-primary" id="menu-toggle">Menu</button>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              <li class="nav-item active">
+                <a class="nav-link" href="http://127.0.0.1:8000/top/">Top <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Account
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="http://127.0.0.1:8000/accounts/logout/">Logout</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="container-fluid">
+
+            <!-- メッセージ -->
+          {% if messages %}
+              <ul class="messages" style="list-style:none;">
+                  {% for message in messages %}
+                      {{message}}
+                  {% endfor %}
+              </ul>
+          {% endif %}
+
+
+          {% block contents %}
+            <!-- メインコンテンツ -->
+          {% endblock %}
+
+        </div>
+      </div>
+      <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Menu Toggle Script -->
+    <script>
+      $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+      });
+    </script>
+
+{% endblock %}
