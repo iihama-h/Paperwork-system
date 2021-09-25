@@ -1347,18 +1347,18 @@ class Test_QuotationListView(LoggedInTestCase):
                 reverse_lazy('quotation:registration'),
                 registration_params21)
 
-        # self.id = 2
-        # self.username = 'testes_user'
-        # self.email = 'test@test.com'
-        # self.password = 'password'
-        #
-        # self.test_user = get_user_model().objects.create_user(
-        #     id=self.id,
-        #     username=self.username,
-        #     email=self.email,
-        #     password=self.password)
-        #
-        # self.client.login(username=self.username, password=self.password)
+        self.id = 2
+        self.username = 'testes_user'
+        self.email = 'test@test.com'
+        self.password = 'password'
+
+        self.test_user = get_user_model().objects.create_user(
+            id=self.id,
+            username=self.username,
+            email=self.email,
+            password=self.password)
+
+        self.client.login(username=self.username, password=self.password)
 
         # ページネーション初期
         response = self.client.get(reverse_lazy('quotation:list'))
