@@ -70,6 +70,7 @@ class Quotations_details(models.Model):
     unit = models.CharField(max_length=255, blank=True, null=True)
     sales_unit_price = models.IntegerField(default=0)
     purchase_unit_price = models.IntegerField(default=0)
+    order = models.IntegerField()
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
@@ -77,6 +78,7 @@ class Quotations_details(models.Model):
 
     class Meta:
         verbose_name_plural = "quotations_details"
+        ordering = ['order']
 
     objects = Quotations_details_manager()
 
