@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Quotations, Quotations_details, Quotations_attached_file, Clients
 from django.db import transaction
 from django.db.models import Q
-from paperwork_system.lib.models_module import make_composite_key
+from paperwork_system.lib.models_module import make_composite_key, split_composite_key
 from .lib.views_module import isnot_detail_empty
 from django.http import FileResponse
 from django.conf import settings
@@ -69,6 +69,8 @@ class RegistrationView(LoginRequiredMixin, generic.CreateView):
                         quotation_detail = details_form.save(commit=False)
                         quotation_detail.item_id = make_composite_key(
                             quotation.quotation_id, Quotations_details)
+                        quotation_detail.order = split_composite_key(
+                            quotation_detail.item_id)
                         quotation_detail.quotation_id = quotation
                         quotation_detail.is_active = True  # formsetの場合はModelのdefault値が　適応されないため明示的に値を設定
                         unit_amount_list.append(
@@ -298,6 +300,8 @@ class ReferenceView(LoginRequiredMixin, generic.UpdateView):
                         quotation_detail = details_form.save(commit=False)
                         quotation_detail.item_id = make_composite_key(
                             quotation.quotation_id, Quotations_details)
+                        quotation_detail.order = split_composite_key(
+                            quotation_detail.item_id)
                         quotation_detail.quotation_id = quotation
                         quotation_detail.is_active = True  # formsetの場合はModelのdefault値が　適応されないため明示的に値を設定
                         unit_amount_list.append(

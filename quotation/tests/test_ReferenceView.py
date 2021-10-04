@@ -173,6 +173,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
         self.assertTrue(queryset[0]['is_active'])
         self.assertEqual(len(queryset), 1)
 
@@ -346,6 +347,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
         self.assertTrue(queryset[0]['is_active'])
 
         self.assertEqual(queryset[1]['item_id'], str(
@@ -368,6 +370,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[1]['purchase_unit_price'],
             reference_params['quotations_details_set-1-purchase_unit_price'])
+        self.assertEqual(queryset[1]['order'], 1)
         self.assertTrue(queryset[1]['is_active'])
 
         self.assertEqual(queryset[2]['item_id'], str(
@@ -390,6 +393,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[2]['purchase_unit_price'],
             reference_params['quotations_details_set-2-purchase_unit_price'])
+        self.assertEqual(queryset[2]['order'], 2)
         self.assertTrue(queryset[2]['is_active'])
 
         self.assertEqual(len(queryset), 3)
@@ -642,6 +646,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
         self.assertTrue(queryset[0]['is_active'])
         self.assertEqual(len(queryset), 1)
 
@@ -764,6 +769,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
             reference_params['quotations_details_set-0-unit'])
         self.assertEqual(queryset[0]['sales_unit_price'], 2147483647)
         self.assertEqual(queryset[0]['purchase_unit_price'], 2147483647)
+        self.assertEqual(queryset[0]['order'], 0)
         self.assertTrue(queryset[0]['is_active'])
         self.assertEqual(len(queryset), 1)
 
@@ -901,6 +907,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
         self.assertTrue(queryset[0]['is_active'])
         self.assertEqual(len(queryset), 1)
 
@@ -908,7 +915,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
     def Test_update_quotation_success_details_max(self):
 
         registration_params = {
-            'quotation_id': 1,
+            'quotation_id': 4,
             'client_id': 1,
             'expiry': '見積有効期限',
             'recipient': '宛名',
@@ -1199,6 +1206,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1223,6 +1231,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-1-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 1)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1247,6 +1256,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-2-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 2)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1271,6 +1281,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-3-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 3)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1295,6 +1306,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-4-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 4)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1319,6 +1331,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-5-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 5)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1343,6 +1356,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-6-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 6)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1367,6 +1381,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-7-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 7)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1391,6 +1406,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-8-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 8)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1415,6 +1431,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-9-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 9)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1440,6 +1457,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-10-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 10)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1464,6 +1482,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-11-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 11)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1488,6 +1507,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-12-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 12)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1512,6 +1532,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-13-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 13)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1536,6 +1557,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-14-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 14)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1560,6 +1582,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-15-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 15)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1584,6 +1607,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-16-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 16)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1608,6 +1632,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-17-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 17)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1632,6 +1657,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-18-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 18)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1656,6 +1682,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-19-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 19)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1680,6 +1707,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-20-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 20)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1704,6 +1732,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-21-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 21)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1728,6 +1757,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-22-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 22)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1752,6 +1782,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-23-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 23)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(item_id=str(
@@ -1776,6 +1807,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             reference_params['quotations_details_set-24-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 24)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(
@@ -1806,7 +1838,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
     def Test_update_quotation_failure_no_Requiredfield(self):
 
         registration_params = {
-            'quotation_id': 4,
+            'quotation_id': 5,
             'client_id': 1,
             'expiry': '見積有効期限',
             'recipient': '宛名',
@@ -1935,13 +1967,14 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             registration_params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
         self.assertTrue(queryset[0]['is_active'])
         self.assertEqual(len(queryset), 1)
 
     def Test_update_quotation_failure_max(self):
 
         registration_params = {
-            'quotation_id': 5,
+            'quotation_id': 6,
             'client_id': 1,
             'expiry': '見積有効期限',
             'recipient': '宛名',
@@ -2206,6 +2239,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             registration_params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
         self.assertTrue(queryset[0]['is_active'])
         self.assertEqual(len(queryset), 1)
 
@@ -2357,6 +2391,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             registration_params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
         self.assertTrue(queryset[0]['is_active'])
         self.assertEqual(len(queryset), 1)
 
@@ -2508,6 +2543,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             registration_params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
         self.assertTrue(queryset[0]['is_active'])
         self.assertEqual(len(queryset), 1)
 
@@ -2659,6 +2695,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             registration_params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
         self.assertTrue(queryset[0]['is_active'])
         self.assertEqual(len(queryset), 1)
 
@@ -2675,7 +2712,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         # self.Test_update_quotation_success_min_integer()
         # self.Test_update_quotation_success_FullWidth_integer()
         self.Test_update_quotation_success_special()
-        # self.Test_update_quotation_success_details_max()
+        self.Test_update_quotation_success_details_max()
         self.Test_update_quotation_failure_no_Requiredfield()
         self.Test_update_quotation_failure_max()
         # self.Test_update_quotation_failure_min_integer()

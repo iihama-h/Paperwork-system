@@ -132,6 +132,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_attached_file.objects.filter(
@@ -268,6 +269,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
         self.assertTrue(queryset[0]['is_active'])
 
         self.assertEqual(
@@ -289,6 +291,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[1]['purchase_unit_price'],
             params['quotations_details_set-1-purchase_unit_price'])
+        self.assertEqual(queryset[1]['order'], 1)
         self.assertTrue(queryset[1]['is_active'])
 
         self.assertEqual(
@@ -310,6 +313,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[2]['purchase_unit_price'],
             params['quotations_details_set-2-purchase_unit_price'])
+        self.assertEqual(queryset[2]['order'], 2)
         self.assertTrue(queryset[2]['is_active'])
 
         queryset = Quotations_attached_file.objects.filter(
@@ -488,6 +492,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
         self.assertTrue(queryset[0]['is_active'])
 
     @freeze_time("2021-05-24 12:34:56")
@@ -673,6 +678,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
         self.assertTrue(queryset[0]['is_active'])
 
     @freeze_time("2021-05-24 12:34:56")
@@ -682,7 +688,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         file_object = ContentFile(b'file content', 'test.txt')
 
         params = {
-            'quotation_id': 1,
+            'quotation_id': 4,
             'client_id': 1,
             'expiry': '',
             'recipient': '',
@@ -906,25 +912,21 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['updated_datetime'], datetime(
                 2021, 5, 24, 12, 34, 56, tzinfo=timezone.utc))
-        self.assertEqual(queryset[0]['expiry'], params['expiry'])
-        self.assertEqual(queryset[0]['recipient'], params['recipient'])
-        self.assertEqual(queryset[0]['title'], params['title'])
-        self.assertEqual(queryset[0]['delivery_time'], params['delivery_time'])
-        self.assertEqual(
-            queryset[0]['delivery_location'],
-            params['delivery_location'])
-        self.assertEqual(
-            queryset[0]['delivery_method'],
-            params['delivery_method'])
-        self.assertEqual(
-            queryset[0]['payment_condition'],
-            params['payment_condition'])
-        self.assertEqual(queryset[0]['consumption_tax'], 644245094)
+        self.assertIsNone(queryset[0]['expiry'])
+        self.assertIsNone(queryset[0]['recipient'])
+        self.assertIsNone(queryset[0]['title'])
+        self.assertIsNone(
+            queryset[0]['delivery_time'],
+            params['delivery_time'])
+        self.assertIsNone(queryset[0]['delivery_location'])
+        self.assertIsNone(queryset[0]['delivery_method'])
+        self.assertIsNone(queryset[0]['payment_condition'])
+        self.assertEqual(queryset[0]['consumption_tax'], 490)
         self.assertEqual(queryset[0]['remark'], params['remark'])
         self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(
-            quotation_id=params['quotation_id']).order_by('item_id').values()
+            quotation_id=params['quotation_id']).order_by('order').values()
         self.assertEqual(
             queryset[0]['item_id'], str(
                 params['quotation_id']) + '_0')
@@ -944,6 +946,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['purchase_unit_price'],
             params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
         self.assertTrue(queryset[0]['is_active'])
 
         self.assertEqual(
@@ -965,6 +968,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[1]['purchase_unit_price'],
             params['quotations_details_set-1-purchase_unit_price'])
+        self.assertEqual(queryset[1]['order'], 1)
         self.assertTrue(queryset[1]['is_active'])
 
         self.assertEqual(
@@ -986,6 +990,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[2]['purchase_unit_price'],
             params['quotations_details_set-2-purchase_unit_price'])
+        self.assertEqual(queryset[2]['order'], 2)
         self.assertTrue(queryset[2]['is_active'])
 
         self.assertEqual(
@@ -1007,6 +1012,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[3]['purchase_unit_price'],
             params['quotations_details_set-3-purchase_unit_price'])
+        self.assertEqual(queryset[3]['order'], 3)
         self.assertTrue(queryset[3]['is_active'])
 
         self.assertEqual(
@@ -1028,6 +1034,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[4]['purchase_unit_price'],
             params['quotations_details_set-4-purchase_unit_price'])
+        self.assertEqual(queryset[4]['order'], 4)
         self.assertTrue(queryset[4]['is_active'])
 
         self.assertEqual(
@@ -1049,6 +1056,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[5]['purchase_unit_price'],
             params['quotations_details_set-5-purchase_unit_price'])
+        self.assertEqual(queryset[5]['order'], 5)
         self.assertTrue(queryset[5]['is_active'])
 
         self.assertEqual(
@@ -1070,6 +1078,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[6]['purchase_unit_price'],
             params['quotations_details_set-6-purchase_unit_price'])
+        self.assertEqual(queryset[6]['order'], 6)
         self.assertTrue(queryset[6]['is_active'])
 
         self.assertEqual(
@@ -1091,6 +1100,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[7]['purchase_unit_price'],
             params['quotations_details_set-7-purchase_unit_price'])
+        self.assertEqual(queryset[7]['order'], 7)
         self.assertTrue(queryset[7]['is_active'])
 
         self.assertEqual(
@@ -1112,6 +1122,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[8]['purchase_unit_price'],
             params['quotations_details_set-8-purchase_unit_price'])
+        self.assertEqual(queryset[8]['order'], 8)
         self.assertTrue(queryset[8]['is_active'])
 
         self.assertEqual(
@@ -1133,6 +1144,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[9]['purchase_unit_price'],
             params['quotations_details_set-9-purchase_unit_price'])
+        self.assertEqual(queryset[9]['order'], 9)
         self.assertTrue(queryset[9]['is_active'])
 
         self.assertEqual(
@@ -1154,6 +1166,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[10]['purchase_unit_price'],
             params['quotations_details_set-10-purchase_unit_price'])
+        self.assertEqual(queryset[10]['order'], 10)
         self.assertTrue(queryset[10]['is_active'])
 
         self.assertEqual(
@@ -1175,6 +1188,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[11]['purchase_unit_price'],
             params['quotations_details_set-11-purchase_unit_price'])
+        self.assertEqual(queryset[11]['order'], 11)
         self.assertTrue(queryset[11]['is_active'])
 
         self.assertEqual(
@@ -1196,6 +1210,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[12]['purchase_unit_price'],
             params['quotations_details_set-12-purchase_unit_price'])
+        self.assertEqual(queryset[12]['order'], 12)
         self.assertTrue(queryset[12]['is_active'])
 
         self.assertEqual(
@@ -1217,6 +1232,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[13]['purchase_unit_price'],
             params['quotations_details_set-13-purchase_unit_price'])
+        self.assertEqual(queryset[13]['order'], 13)
         self.assertTrue(queryset[13]['is_active'])
 
         self.assertEqual(
@@ -1238,6 +1254,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[14]['purchase_unit_price'],
             params['quotations_details_set-14-purchase_unit_price'])
+        self.assertEqual(queryset[14]['order'], 14)
         self.assertTrue(queryset[14]['is_active'])
 
         self.assertEqual(
@@ -1259,6 +1276,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[15]['purchase_unit_price'],
             params['quotations_details_set-15-purchase_unit_price'])
+        self.assertEqual(queryset[15]['order'], 15)
         self.assertTrue(queryset[15]['is_active'])
 
         self.assertEqual(
@@ -1280,6 +1298,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[16]['purchase_unit_price'],
             params['quotations_details_set-16-purchase_unit_price'])
+        self.assertEqual(queryset[16]['order'], 16)
         self.assertTrue(queryset[16]['is_active'])
 
         self.assertEqual(
@@ -1301,6 +1320,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[17]['purchase_unit_price'],
             params['quotations_details_set-17-purchase_unit_price'])
+        self.assertEqual(queryset[17]['order'], 17)
         self.assertTrue(queryset[17]['is_active'])
 
         self.assertEqual(
@@ -1322,6 +1342,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[18]['purchase_unit_price'],
             params['quotations_details_set-18-purchase_unit_price'])
+        self.assertEqual(queryset[18]['order'], 18)
         self.assertTrue(queryset[18]['is_active'])
 
         self.assertEqual(
@@ -1343,6 +1364,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[19]['purchase_unit_price'],
             params['quotations_details_set-19-purchase_unit_price'])
+        self.assertEqual(queryset[19]['order'], 19)
         self.assertTrue(queryset[19]['is_active'])
 
         self.assertEqual(
@@ -1364,6 +1386,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[20]['purchase_unit_price'],
             params['quotations_details_set-20-purchase_unit_price'])
+        self.assertEqual(queryset[20]['order'], 20)
         self.assertTrue(queryset[20]['is_active'])
 
         self.assertEqual(
@@ -1385,6 +1408,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[21]['purchase_unit_price'],
             params['quotations_details_set-21-purchase_unit_price'])
+        self.assertEqual(queryset[21]['order'], 21)
         self.assertTrue(queryset[21]['is_active'])
 
         self.assertEqual(
@@ -1406,6 +1430,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[22]['purchase_unit_price'],
             params['quotations_details_set-22-purchase_unit_price'])
+        self.assertEqual(queryset[22]['order'], 22)
         self.assertTrue(queryset[22]['is_active'])
 
         self.assertEqual(
@@ -1427,6 +1452,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[23]['purchase_unit_price'],
             params['quotations_details_set-23-purchase_unit_price'])
+        self.assertEqual(queryset[23]['order'], 23)
         self.assertTrue(queryset[23]['is_active'])
 
         self.assertEqual(
@@ -1448,6 +1474,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(
             queryset[24]['purchase_unit_price'],
             params['quotations_details_set-24-purchase_unit_price'])
+        self.assertEqual(queryset[24]['order'], 24)
         self.assertTrue(queryset[24]['is_active'])
 
         queryset = Quotations_attached_file.objects.filter(
@@ -1474,7 +1501,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
     def Test_create_quotation_failure_no_Requiredfield(self):
 
         params = {
-            'quotation_id': 4,
+            'quotation_id': 5,
             'client_id': '',
             'expiry': '',
             'recipient': '',
@@ -1525,7 +1552,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         file_object = ContentFile(b'file content', 'test.txt')
 
         params = {
-            'quotation_id': 4,
+            'quotation_id': 6,
             'client_id': 1,
             'expiry': '見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効期限見積有効',
             'recipient': '宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛名宛宛名宛名宛名宛名宛名宛名宛名宛',
@@ -1710,7 +1737,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
     def Test_create_quotation_failure_min_integer(self):
 
         params = {
-            'quotation_id': 4,
+            'quotation_id': 6,
             'client_id': 1,
             'expiry': '',
             'recipient': '',
@@ -1760,7 +1787,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
     def Test_create_quotation_failure_no_integer(self):
 
         params = {
-            'quotation_id': 4,
+            'quotation_id': 6,
             'client_id': 1,
             'expiry': '',
             'recipient': '',
@@ -1810,7 +1837,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
     def Test_create_quotation_failure_FloatField(self):
 
         params = {
-            'quotation_id': 4,
+            'quotation_id': 6,
             'client_id': 1,
             'expiry': '',
             'recipient': '',
@@ -1860,7 +1887,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
     def Test_create_quotation_failure_not_client_id(self):
 
         params = {
-            'quotation_id': 4,
+            'quotation_id': 6,
             'client_id': '顧客名',
             'expiry': '',
             'recipient': '',
@@ -1913,7 +1940,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
     def Test_create_quotation_failure_client_id_not_active(self):
 
         params = {
-            'quotation_id': 4,
+            'quotation_id': 6,
             'client_id': 2,
             'expiry': '',
             'recipient': '',
@@ -1967,7 +1994,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         # self.Test_create_quotation_success_min_integer()
         # self.Test_create_quotation_success_FullWidth_integer()
         self.Test_create_quotation_success_special()
-        # self.Test_create_quotation_success_details_max()
+        self.Test_create_quotation_success_details_max()
         self.Test_create_quotation_failure_no_Requiredfield()
         self.Test_create_quotation_failure_MAX()
         # self.Test_create_quotation_failure_min_integer()
