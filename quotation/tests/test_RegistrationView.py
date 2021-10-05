@@ -22,8 +22,8 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
     if os.path.exists(test_directory_path):
         rmtree(test_directory_path)
 
-    def setup(self):
-
+    def setUp(self):
+        super().setUp()
         # テスト用データの作成
         registration_client = Clients.objects.create(
             client_id=1,
@@ -1987,7 +1987,6 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
 # Djangoのテストは「test~」メソッドが実行されるたびにDBが初期化される。Djangoにテストメソッドとして認識されるのは、「test_list_quotation_success_ordering」のみであるため、各々「Test_list_quotation_~」メソッドが完了したあとも、DBの初期化処理は行われない
 
     def test_create_quotation_ordering(self):
-        self.setup()
         self.Test_create_quotation_success()
         # self.Test_create_quotation_success_max()
         self.Test_create_quotation_success_min()
