@@ -9,7 +9,8 @@ from ..models import Quotations, Quotations_details, Quotations_attached_file, C
 
 class Test_QuotationListView(LoggedInTestCase):
 
-    def setup(self):
+    def setUp(self):
+        super().setUp()
         # テスト用データの作成
         # quotation_id 1の登録
         registration_client1 = Clients.objects.create(
@@ -1383,7 +1384,6 @@ class Test_QuotationListView(LoggedInTestCase):
 # Djangoのテストは「test~」メソッドが実行されるたびにDBが初期化される。Djangoにテストメソッドとして認識されるのは、「test_list_quotation_success_ordering」のみであるため、各々「Test_list_quotation_~」メソッドが完了したあとも、DBの初期化処理は行われない
 
     def test_list_quotation_ordering(self):
-        self.setup()
         self.Test_list_quotation_success()
         self.Test_list_quotation_success_all_notexist()
         self.Test_list_quotation_success_input_variation_ennn()
