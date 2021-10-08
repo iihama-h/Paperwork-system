@@ -52,49 +52,60 @@ class RegistrationView(LoginRequiredMixin, generic.CreateView):
             messages.error(self.request, '顧客が存在しませんでした。')
             return self.form_invalid(form)
 
+        i = 0
+        unit_amount_list = []
+        for details_form in details_formset:
+            unit_amount_list.append(
+                int(details_formset[i]['quantity'].value()) *
+                int(details_formset[i]['sales_unit_price'].value()))
+            i += 1
+        consumption_tax = calculation_module.consumption_tax(
+            unit_amount_list)
+
         if details_formset.is_valid() and attached_file_form.is_valid(
         ):
-            with transaction.atomic():
-                quotation.save()
-                unit_amount_list = []
+            if consumption_tax <= 2147483647 and consumption_tax >= -2147483647:
+                with transaction.atomic():
+                    quotation.save()
 
-                i = 0
-                for details_form in details_formset:
-                    if isnot_detail_empty(self.request.POST, i, 'merchandise', '')\
-                            or isnot_detail_empty(self.request.POST, i, 'merchandise_description', '')\
-                            or isnot_detail_empty(self.request.POST, i, 'quantity', '0')\
-                            or isnot_detail_empty(self.request.POST, i, 'unit', '')\
-                            or isnot_detail_empty(self.request.POST, i, 'sales_unit_price', '0')\
-                            or isnot_detail_empty(self.request.POST, i, 'purchase_unit_price', '0'):  # 空のdetailがリクエストされた際は処理を行わない
-                        quotation_detail = details_form.save(commit=False)
-                        quotation_detail.item_id = make_composite_key(
-                            quotation.quotation_id, Quotations_details)
-                        quotation_detail.order = split_composite_key(
-                            quotation_detail.item_id)
-                        quotation_detail.quotation_id = quotation
-                        quotation_detail.is_active = True  # formsetの場合はModelのdefault値が　適応されないため明示的に値を設定
-                        unit_amount_list.append(
-                            quotation_detail.sales_unit_price *
-                            quotation_detail.quantity)
-                        Quotations_details_model_instance = quotation_detail.save()
-                    i += 1
+                    i = 0
+                    for details_form in details_formset:
+                        if isnot_detail_empty(self.request.POST, i, 'merchandise', '')\
+                                or isnot_detail_empty(self.request.POST, i, 'merchandise_description', '')\
+                                or isnot_detail_empty(self.request.POST, i, 'quantity', '0')\
+                                or isnot_detail_empty(self.request.POST, i, 'unit', '')\
+                                or isnot_detail_empty(self.request.POST, i, 'sales_unit_price', '0')\
+                                or isnot_detail_empty(self.request.POST, i, 'purchase_unit_price', '0'):  # 空のformsetがリクエストされた際は処理を行わない
+                            quotation_detail = details_form.save(commit=False)
+                            quotation_detail.item_id = make_composite_key(
+                                quotation.quotation_id, Quotations_details)
+                            quotation_detail.order = split_composite_key(
+                                quotation_detail.item_id)
+                            quotation_detail.quotation_id = quotation
+                            quotation_detail.is_active = True  # formsetの場合はModelのdefault値が　適応されないため明示的に値を設定
+                            Quotations_details_model_instance = quotation_detail.save()
+                        i += 1
 
-                quotation.consumption_tax = calculation_module.consumption_tax(
-                    unit_amount_list)
-                quotation.save()
+                    quotation.consumption_tax = consumption_tax
+                    quotation.save()
 
-                if self.request.POST.get(
-                        'file') != '':  # 空のfailがリクエストされた際は処理を行わない
-                    Quotations_attached_file.objects.create(
-                        quotation_id=quotation,
-                        file=self.request.FILES['file'],
-                    )
+                    if self.request.POST.get(
+                            'file') != '':  # 空のfailがリクエストされた際は処理を行わない
+                        Quotations_attached_file.objects.create(
+                            quotation_id=quotation,
+                            file=self.request.FILES['file'],
+                        )
 
-            logger.info(
-                'Quotation quotation_id:{} has been created by Users.id:{}'.format(
-                    quotation.quotation_id,
-                    self.request.user.id))
-            messages.success(self.request, '登録が完了しました。')
+                logger.info(
+                    'Quotation quotation_id:{} has been created by Users.id:{}'.format(
+                        quotation.quotation_id,
+                        self.request.user.id))
+                messages.success(self.request, '登録が完了しました。')
+            else:
+                messages.error(
+                    self.request,
+                    '登録する消費税額を-2,147,483,647 から 2,147,483,647の範囲にしてください。')
+                self.form_invalid(form)
         else:
             self.form_invalid(form)
         return super().form_valid(form)
@@ -282,52 +293,63 @@ class ReferenceView(LoginRequiredMixin, generic.UpdateView):
             messages.error(self.request, '顧客が存在しませんでした。')
             return self.form_invalid(form)
 
+        i = 0
+        unit_amount_list = []
+        for details_form in details_formset:
+            unit_amount_list.append(
+                int(details_formset[i]['quantity'].value()) *
+                int(details_formset[i]['sales_unit_price'].value()))
+            i += 1
+        consumption_tax = calculation_module.consumption_tax(
+            unit_amount_list)
+
         if details_formset.is_valid() and attached_file_is_valid:
-            with transaction.atomic():
-                quotation.save()
-                unit_amount_list = []
+            if consumption_tax <= 2147483647 and consumption_tax >= -2147483647:
+                with transaction.atomic():
+                    quotation.save()
 
-                Quotations_details.objects.filter(
-                    quotation_id=quotation.quotation_id).delete()
-                i = 0
-                for details_form in details_formset:
-                    if isnot_detail_empty(self.request.POST, i, 'merchandise', '')\
-                            or isnot_detail_empty(self.request.POST, i, 'merchandise_description', '')\
-                            or isnot_detail_empty(self.request.POST, i, 'quantity', '0')\
-                            or isnot_detail_empty(self.request.POST, i, 'unit', '')\
-                            or isnot_detail_empty(self.request.POST, i, 'sales_unit_price', '0')\
-                            or isnot_detail_empty(self.request.POST, i, 'purchase_unit_price', '0'):  # 空のdetailがリクエストされた際は処理を行わない
-                        quotation_detail = details_form.save(commit=False)
-                        quotation_detail.item_id = make_composite_key(
-                            quotation.quotation_id, Quotations_details)
-                        quotation_detail.order = split_composite_key(
-                            quotation_detail.item_id)
-                        quotation_detail.quotation_id = quotation
-                        quotation_detail.is_active = True  # formsetの場合はModelのdefault値が　適応されないため明示的に値を設定
-                        unit_amount_list.append(
-                            quotation_detail.sales_unit_price *
-                            quotation_detail.quantity)
-                        Quotations_details_model_instance = quotation_detail.save()
-                    i += 1
+                    Quotations_details.objects.filter(
+                        quotation_id=quotation.quotation_id).delete()
+                    i = 0
+                    for details_form in details_formset:
+                        if isnot_detail_empty(self.request.POST, i, 'merchandise', '')\
+                                or isnot_detail_empty(self.request.POST, i, 'merchandise_description', '')\
+                                or isnot_detail_empty(self.request.POST, i, 'quantity', '0')\
+                                or isnot_detail_empty(self.request.POST, i, 'unit', '')\
+                                or isnot_detail_empty(self.request.POST, i, 'sales_unit_price', '0')\
+                                or isnot_detail_empty(self.request.POST, i, 'purchase_unit_price', '0'):  # 空のformsetがリクエストされた際は処理を行わない
+                            quotation_detail = details_form.save(commit=False)
+                            quotation_detail.item_id = make_composite_key(
+                                quotation.quotation_id, Quotations_details)
+                            quotation_detail.order = split_composite_key(
+                                quotation_detail.item_id)
+                            quotation_detail.quotation_id = quotation
+                            quotation_detail.is_active = True  # formsetの場合はModelのdefault値が　適応されないため明示的に値を設定
+                            Quotations_details_model_instance = quotation_detail.save()
+                        i += 1
 
-                quotation.consumption_tax = calculation_module.consumption_tax(
-                    unit_amount_list)
-                quotation.save()
+                    quotation.consumption_tax = consumption_tax
+                    quotation.save()
 
-                if Quotations_attached_file.objects.filter(quotation_id=self.kwargs['pk']).first(
-                ) is None:  # Quotations_attached_fileが登録されていない場合は処理を行わない
-                    if self.request.POST.get(
-                            'file') != '':  # 空のfailがリクエストされた際は処理を行わない
-                        Quotations_attached_file.objects.create(
-                            quotation_id=quotation,
-                            file=self.request.FILES['file'],
-                        )
+                    if Quotations_attached_file.objects.filter(quotation_id=self.kwargs['pk']).first(
+                    ) is None:  # Quotations_attached_fileが登録されていない場合は処理を行わない
+                        if self.request.POST.get(
+                                'file') != '':  # 空のfailがリクエストされた際は処理を行わない
+                            Quotations_attached_file.objects.create(
+                                quotation_id=quotation,
+                                file=self.request.FILES['file'],
+                            )
 
-            logger.info(
-                'Quotation quotation_id:{} has been updated by Users.id:{}'.format(
-                    quotation.quotation_id,
-                    self.request.user.id))
-            messages.success(self.request, '更新が完了しました。')
+                logger.info(
+                    'Quotation quotation_id:{} has been updated by Users.id:{}'.format(
+                        quotation.quotation_id,
+                        self.request.user.id))
+                messages.success(self.request, '更新が完了しました。')
+            else:
+                messages.error(
+                    self.request,
+                    '更新する消費税額を-2,147,483,647 から 2,147,483,647の範囲にしてください。')
+                self.form_invalid(form)
         else:
             self.form_invalid(form)
         return super().form_valid(form)

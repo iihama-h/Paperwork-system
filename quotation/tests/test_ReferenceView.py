@@ -32,7 +32,6 @@ class Test_QuotationReferenceView(LoggedInTestCase):
 
 # 正常系
 
-
     def Test_update_quotation_success(self):
 
         registration_params = {
@@ -197,7 +196,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
     def Test_update_quotation_success_max(self):
 
         registration_params = {
-            'quotation_id': 1,
+            'quotation_id': 2,
             'client_id': 1,
             'expiry': '見積有効期限',
             'recipient': '宛名',
@@ -248,24 +247,21 @@ class Test_QuotationReferenceView(LoggedInTestCase):
 
             'quotations_details_set-0-merchandise': '商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名商品名',
             'quotations_details_set-0-merchandise_description': '商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明細商品明',
-            # 2147483647 を設定するとDataError（integerの範囲外です）が発生する　バグ
-            'quotations_details_set-0-quantity': 2147483647,
+            'quotations_details_set-0-quantity': 1,
             'quotations_details_set-0-unit': '単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単位単',
             'quotations_details_set-0-sales_unit_price': 2147483647,
             'quotations_details_set-0-purchase_unit_price': 2147483647,
 
             'quotations_details_set-1-merchandise': '商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名A商品名',
             'quotations_details_set-1-merchandise_description': '商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A商品明細A',
-            # 2147483647 を設定するとDataError（integerの範囲外です）が発生する　バグ
-            'quotations_details_set-1-quantity': 2147483647,
+            'quotations_details_set-1-quantity': 1,
             'quotations_details_set-1-unit': '単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A単位A',
             'quotations_details_set-1-sales_unit_price': 2147483647,
             'quotations_details_set-1-purchase_unit_price': 2147483647,
 
             'quotations_details_set-2-merchandise': '商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名B商品名',
             'quotations_details_set-2-merchandise_description': '商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B商品明細B',
-            # 2147483647 を設定するとDataError（integerの範囲外です）が発生する　バグ
-            'quotations_details_set-2-quantity': 2147483647,
+            'quotations_details_set-2-quantity': 1,
             'quotations_details_set-2-unit': '単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B単位B',
             'quotations_details_set-2-sales_unit_price': 2147483647,
             'quotations_details_set-2-purchase_unit_price': 2147483647,
@@ -321,7 +317,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['payment_condition'],
             reference_params['payment_condition'])
-        self.assertEqual(queryset[0]['consumption_tax'], 10)
+        self.assertEqual(queryset[0]['consumption_tax'], 644245094)
         self.assertEqual(queryset[0]['remark'], reference_params['remark'])
         self.assertTrue(queryset[0]['is_active'])
 
@@ -415,10 +411,141 @@ class Test_QuotationReferenceView(LoggedInTestCase):
                 '\\\\',
                 '\\'))
 
+    def Test_update_quotation_success_max_quantity(self):
+        registration_params = {
+            'quotation_id': 3,
+            'client_id': 1,
+            'expiry': '見積有効期限',
+            'recipient': '宛名',
+            'title': '件名',
+            'delivery_time': '納期',
+            'delivery_location': '納入場所',
+            'delivery_method': '納入方法',
+            'payment_condition': '取引条件',
+            'remark': '備考',
+
+            'quotations_details_set-TOTAL_FORMS': 1,
+            'quotations_details_set-INITIAL_FORMS': 0,
+            'quotations_details_set-MIN_NUM_FORMS': 0,
+            'quotations_details_set-MAX_NUM_FORMS': 1000,
+            'quotations_details_set-0-merchandise': '商品名',
+            'quotations_details_set-0-merchandise_description': '商品明細',
+            'quotations_details_set-0-quantity': 1,
+            'quotations_details_set-0-unit': '単位',
+            'quotations_details_set-0-sales_unit_price': 100,
+            'quotations_details_set-0-purchase_unit_price': 90,
+
+            'file': ''
+        }
+
+        with freeze_time("2021-05-23 12:34:56"):
+            self.client.post(
+                reverse_lazy('quotation:registration'),
+                registration_params)
+
+        # 更新処理を実行
+
+        reference_params = {
+            'client_id': 1,
+            'expiry': '',
+            'recipient': '',
+            'title': '',
+            'delivery_time': '',
+            'delivery_location': '',
+            'delivery_method': '',
+            'payment_condition': '',
+            'remark': '',
+
+            'quotations_details_set-TOTAL_FORMS': 1,
+            'quotations_details_set-INITIAL_FORMS': 0,
+            'quotations_details_set-MIN_NUM_FORMS': 0,
+            'quotations_details_set-MAX_NUM_FORMS': 1000,
+            'quotations_details_set-0-merchandise': '商品名',
+            'quotations_details_set-0-merchandise_description': '商品明細',
+            'quotations_details_set-0-quantity': 2147483647,
+            'quotations_details_set-0-unit': '単位',
+            'quotations_details_set-0-sales_unit_price': 0,
+            'quotations_details_set-0-purchase_unit_price': 0,
+
+            'file': ''
+        }
+
+        with freeze_time("2021-05-24 12:34:56"):
+            response = self.client.post(
+                reverse_lazy(
+                    'quotation:reference',
+                    kwargs={
+                        'pk': registration_params['quotation_id']}),
+                reference_params)
+
+        # リダイレクトを検証
+        self.assertRedirects(
+            response, reverse_lazy(
+                'quotation:reference', kwargs={
+                    'pk': registration_params['quotation_id']}))
+
+        # メッセージを検証
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(str(messages[1]), '更新が完了しました。')
+
+        # 各フィールドに変更されている値の正当性を検証
+        queryset = Quotations.objects.filter(
+            pk=registration_params['quotation_id']).values()
+        self.assertEqual(
+            queryset[0]['client_id_id'],
+            reference_params['client_id'])
+        self.assertEqual(queryset[0]['username_id'], 1)
+        self.assertEqual(
+            queryset[0]['created_datetime'], datetime(
+                2021, 5, 23, 12, 34, 56, tzinfo=timezone.utc))
+        self.assertEqual(
+            queryset[0]['updated_datetime'], datetime(
+                2021, 5, 24, 12, 34, 56, tzinfo=timezone.utc))
+        self.assertIsNone(queryset[0]['expiry'])
+        self.assertIsNone(queryset[0]['recipient'])
+        self.assertIsNone(queryset[0]['title'])
+        self.assertIsNone(queryset[0]['delivery_time'])
+        self.assertIsNone(queryset[0]['delivery_location'])
+        self.assertIsNone(queryset[0]['delivery_method'])
+        self.assertIsNone(queryset[0]['payment_condition'])
+        self.assertEqual(queryset[0]['consumption_tax'], 0)
+        self.assertEqual(queryset[0]['remark'], reference_params['remark'])
+        self.assertTrue(queryset[0]['is_active'])
+
+        queryset = Quotations_details.objects.filter(
+            quotation_id=registration_params['quotation_id']).values()
+        self.assertEqual(len(queryset), 1)
+
+        queryset = Quotations_details.objects.filter(
+            quotation_id=registration_params['quotation_id']).values()
+        self.assertEqual(queryset[0]['item_id'], str(
+            registration_params['quotation_id']) + '_0')
+        self.assertEqual(
+            queryset[0]['merchandise'],
+            reference_params['quotations_details_set-0-merchandise'])
+        self.assertEqual(
+            queryset[0]['merchandise_description'],
+            reference_params['quotations_details_set-0-merchandise_description'])
+        self.assertEqual(
+            queryset[0]['quantity'],
+            reference_params['quotations_details_set-0-quantity'])
+        self.assertEqual(
+            queryset[0]['unit'],
+            reference_params['quotations_details_set-0-unit'])
+        self.assertEqual(
+            queryset[0]['sales_unit_price'],
+            reference_params['quotations_details_set-0-sales_unit_price'])
+        self.assertEqual(
+            queryset[0]['purchase_unit_price'],
+            reference_params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
+        self.assertTrue(queryset[0]['is_active'])
+        self.assertEqual(len(queryset), 1)
+
     def Test_update_quotation_success_min(self):
 
         registration_params = {
-            'quotation_id': 2,
+            'quotation_id': 4,
             'client_id': 1,
             'expiry': '見積有効期限',
             'recipient': '宛名',
@@ -524,7 +651,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
     def Test_update_quotation_success_min_integer(self):
 
         registration_params = {
-            'quotation_id': 1,
+            'quotation_id': 5,
             'client_id': 1,
             'expiry': '見積有効期限',
             'recipient': '宛名',
@@ -573,11 +700,138 @@ class Test_QuotationReferenceView(LoggedInTestCase):
             'quotations_details_set-MAX_NUM_FORMS': 1000,
             'quotations_details_set-0-merchandise': '商品名',
             'quotations_details_set-0-merchandise_description': '商品明細',
-            # -2147483647 を設定するとDataError（integerの範囲外です）が発生する　バグ
-            'quotations_details_set-0-quantity': -2147483647,
+            'quotations_details_set-0-quantity': 1,
             'quotations_details_set-0-unit': '単位',
             'quotations_details_set-0-sales_unit_price': -2147483647,
             'quotations_details_set-0-purchase_unit_price': -2147483647,
+
+            'file': ''
+        }
+
+        with freeze_time("2021-05-24 12:34:56"):
+            response = self.client.post(
+                reverse_lazy(
+                    'quotation:reference',
+                    kwargs={
+                        'pk': registration_params['quotation_id']}),
+                reference_params)
+
+        # リダイレクトを検証
+        self.assertRedirects(
+            response, reverse_lazy(
+                'quotation:reference', kwargs={
+                    'pk': registration_params['quotation_id']}))
+
+        # メッセージを検証
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(str(messages[1]), '更新が完了しました。')
+
+        # 各フィールドに変更されている値の正当性を検証
+        queryset = Quotations.objects.filter(
+            pk=registration_params['quotation_id']).values()
+        self.assertEqual(
+            queryset[0]['client_id_id'],
+            reference_params['client_id'])
+        self.assertEqual(queryset[0]['username_id'], 1)
+        self.assertEqual(
+            queryset[0]['created_datetime'], datetime(
+                2021, 5, 23, 12, 34, 56, tzinfo=timezone.utc))
+        self.assertEqual(
+            queryset[0]['updated_datetime'], datetime(
+                2021, 5, 24, 12, 34, 56, tzinfo=timezone.utc))
+        self.assertIsNone(queryset[0]['expiry'])
+        self.assertIsNone(queryset[0]['recipient'])
+        self.assertIsNone(queryset[0]['title'])
+        self.assertIsNone(queryset[0]['delivery_time'])
+        self.assertIsNone(queryset[0]['delivery_location'])
+        self.assertIsNone(queryset[0]['delivery_method'])
+        self.assertIsNone(queryset[0]['payment_condition'])
+        self.assertEqual(queryset[0]['consumption_tax'], -214748365)
+        self.assertEqual(queryset[0]['remark'], reference_params['remark'])
+        self.assertTrue(queryset[0]['is_active'])
+
+        queryset = Quotations_details.objects.filter(
+            quotation_id=registration_params['quotation_id']).values()
+        self.assertEqual(queryset[0]['item_id'], str(
+            registration_params['quotation_id']) + '_0')
+        self.assertEqual(
+            queryset[0]['merchandise'],
+            reference_params['quotations_details_set-0-merchandise'])
+        self.assertEqual(
+            queryset[0]['merchandise_description'],
+            reference_params['quotations_details_set-0-merchandise_description'])
+        self.assertEqual(
+            queryset[0]['quantity'],
+            reference_params['quotations_details_set-0-quantity'])
+        self.assertEqual(
+            queryset[0]['unit'],
+            reference_params['quotations_details_set-0-unit'])
+        self.assertEqual(
+            queryset[0]['sales_unit_price'],
+            reference_params['quotations_details_set-0-sales_unit_price'])
+        self.assertEqual(
+            queryset[0]['purchase_unit_price'],
+            reference_params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
+        self.assertTrue(queryset[0]['is_active'])
+        self.assertEqual(len(queryset), 1)
+
+    def Test_update_quotation_success_min_integer_quantity(self):
+
+        registration_params = {
+            'quotation_id': 6,
+            'client_id': 1,
+            'expiry': '見積有効期限',
+            'recipient': '宛名',
+            'title': '件名',
+            'delivery_time': '納期',
+            'delivery_location': '納入場所',
+            'delivery_method': '納入方法',
+            'payment_condition': '取引条件',
+            'remark': '備考',
+
+            'quotations_details_set-TOTAL_FORMS': 1,
+            'quotations_details_set-INITIAL_FORMS': 0,
+            'quotations_details_set-MIN_NUM_FORMS': 0,
+            'quotations_details_set-MAX_NUM_FORMS': 1000,
+            'quotations_details_set-0-merchandise': '商品名',
+            'quotations_details_set-0-merchandise_description': '商品明細',
+            'quotations_details_set-0-quantity': 1,
+            'quotations_details_set-0-unit': '単位',
+            'quotations_details_set-0-sales_unit_price': 100,
+            'quotations_details_set-0-purchase_unit_price': 90,
+
+            'file': ''
+        }
+
+        with freeze_time("2021-05-23 12:34:56"):
+            self.client.post(
+                reverse_lazy('quotation:registration'),
+                registration_params)
+
+        # 更新処理を実行
+
+        reference_params = {
+            'client_id': 1,
+            'expiry': '',
+            'recipient': '',
+            'title': '',
+            'delivery_time': '',
+            'delivery_location': '',
+            'delivery_method': '',
+            'payment_condition': '',
+            'remark': '',
+
+            'quotations_details_set-TOTAL_FORMS': 1,
+            'quotations_details_set-INITIAL_FORMS': 0,
+            'quotations_details_set-MIN_NUM_FORMS': 0,
+            'quotations_details_set-MAX_NUM_FORMS': 1000,
+            'quotations_details_set-0-merchandise': '商品名',
+            'quotations_details_set-0-merchandise_description': '商品明細',
+            'quotations_details_set-0-quantity': -2147483647,
+            'quotations_details_set-0-unit': '単位',
+            'quotations_details_set-0-sales_unit_price': 0,
+            'quotations_details_set-0-purchase_unit_price': 0,
 
             'file': ''
         }
@@ -653,7 +907,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
     def Test_update_quotation_success_FullWidth_integer(self):
 
         registration_params = {
-            'quotation_id': 1,
+            'quotation_id': 7,
             'client_id': 1,
             'expiry': '見積有効期限',
             'recipient': '宛名',
@@ -702,8 +956,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
             'quotations_details_set-MAX_NUM_FORMS': 1000,
             'quotations_details_set-0-merchandise': '商品名',
             'quotations_details_set-0-merchandise_description': '商品明細',
-            # '２１４７４８３６４７' を設定するとDataError（integerの範囲外です）が発生する　バグ
-            'quotations_details_set-0-quantity': '２１４７４８３６４７',
+            'quotations_details_set-0-quantity': '１',
             'quotations_details_set-0-unit': '単位',
             'quotations_details_set-0-sales_unit_price': '２１４７４８３６４７',
             'quotations_details_set-0-purchase_unit_price': '２１４７４８３６４７',
@@ -749,7 +1002,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertIsNone(queryset[0]['delivery_location'])
         self.assertIsNone(queryset[0]['delivery_method'])
         self.assertIsNone(queryset[0]['payment_condition'])
-        self.assertEqual(queryset[0]['consumption_tax'], 0)
+        self.assertEqual(queryset[0]['consumption_tax'], 214748364)
         self.assertEqual(queryset[0]['remark'], reference_params['remark'])
         self.assertTrue(queryset[0]['is_active'])
 
@@ -763,7 +1016,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['merchandise_description'],
             reference_params['quotations_details_set-0-merchandise_description'])
-        self.assertEqual(queryset[0]['quantity'], 2147483647)
+        self.assertEqual(queryset[0]['quantity'], 1)
         self.assertEqual(
             queryset[0]['unit'],
             reference_params['quotations_details_set-0-unit'])
@@ -776,7 +1029,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
     def Test_update_quotation_success_special(self):
 
         registration_params = {
-            'quotation_id': 3,
+            'quotation_id': 8,
             'client_id': 1,
             'expiry': '見積有効期限',
             'recipient': '宛名',
@@ -915,7 +1168,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
     def Test_update_quotation_success_details_max(self):
 
         registration_params = {
-            'quotation_id': 4,
+            'quotation_id': 9,
             'client_id': 1,
             'expiry': '見積有効期限',
             'recipient': '宛名',
@@ -1831,14 +2084,225 @@ class Test_QuotationReferenceView(LoggedInTestCase):
                 '\\\\',
                 '\\'))
 
+    def Test_update_quotation_success_max_consumption_tax(self):
+
+        registration_params = {
+            'quotation_id': 10,
+            'client_id': 1,
+            'expiry': '見積有効期限',
+            'recipient': '宛名',
+            'title': '件名',
+            'delivery_time': '納期',
+            'delivery_location': '納入場所',
+            'delivery_method': '納入方法',
+            'payment_condition': '取引条件',
+            'remark': '備考',
+
+            'quotations_details_set-TOTAL_FORMS': 1,
+            'quotations_details_set-INITIAL_FORMS': 0,
+            'quotations_details_set-MIN_NUM_FORMS': 0,
+            'quotations_details_set-MAX_NUM_FORMS': 1000,
+            'quotations_details_set-0-merchandise': '商品名',
+            'quotations_details_set-0-merchandise_description': '商品明細',
+            'quotations_details_set-0-quantity': 1,
+            'quotations_details_set-0-unit': '単位',
+            'quotations_details_set-0-sales_unit_price': 100,
+            'quotations_details_set-0-purchase_unit_price': 90,
+
+            'file': ''
+        }
+
+        with freeze_time("2021-05-23 12:34:56"):
+            self.client.post(
+                reverse_lazy('quotation:registration'),
+                registration_params)
+
+        # 更新処理を実行
+
+        reference_params = {
+            'client_id': 1,
+            'expiry': '',
+            'recipient': '',
+            'title': '',
+            'delivery_time': '',
+            'delivery_location': '',
+            'delivery_method': '',
+            'payment_condition': '',
+            'remark': '',
+
+            'quotations_details_set-TOTAL_FORMS': 1,
+            'quotations_details_set-INITIAL_FORMS': 0,
+            'quotations_details_set-MIN_NUM_FORMS': 0,
+            'quotations_details_set-MAX_NUM_FORMS': 1000,
+            'quotations_details_set-0-merchandise': '',
+            'quotations_details_set-0-merchandise_description': '',
+            'quotations_details_set-0-quantity': 10,
+            'quotations_details_set-0-unit': '',
+            'quotations_details_set-0-sales_unit_price': 2147483647,
+            'quotations_details_set-0-purchase_unit_price': 0,
+
+            'file': ''
+        }
+
+        with freeze_time("2021-05-24 12:34:56"):
+            response = self.client.post(
+                reverse_lazy(
+                    'quotation:reference',
+                    kwargs={
+                        'pk': registration_params['quotation_id']}),
+                reference_params)
+
+        # リダイレクトを検証
+        self.assertRedirects(
+            response, reverse_lazy(
+                'quotation:reference', kwargs={
+                    'pk': registration_params['quotation_id']}))
+
+        # メッセージを検証
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(str(messages[1]), '更新が完了しました。')
+
+        # 各フィールドに変更されている値の正当性を検証
+        queryset = Quotations.objects.filter(
+            pk=registration_params['quotation_id']).values()
+        self.assertEqual(
+            queryset[0]['client_id_id'],
+            reference_params['client_id'])
+        self.assertEqual(queryset[0]['username_id'], 1)
+        self.assertEqual(
+            queryset[0]['created_datetime'], datetime(
+                2021, 5, 23, 12, 34, 56, tzinfo=timezone.utc))
+        self.assertEqual(
+            queryset[0]['updated_datetime'], datetime(
+                2021, 5, 24, 12, 34, 56, tzinfo=timezone.utc))
+        self.assertIsNone(queryset[0]['expiry'])
+        self.assertIsNone(queryset[0]['recipient'])
+        self.assertIsNone(queryset[0]['title'])
+        self.assertIsNone(queryset[0]['delivery_time'])
+        self.assertIsNone(queryset[0]['delivery_location'])
+        self.assertIsNone(queryset[0]['delivery_method'])
+        self.assertIsNone(queryset[0]['payment_condition'])
+        self.assertEqual(queryset[0]['consumption_tax'], 2147483647)
+        self.assertEqual(queryset[0]['remark'], reference_params['remark'])
+        self.assertTrue(queryset[0]['is_active'])
+
+        queryset = Quotations_details.objects.filter(
+            quotation_id=registration_params['quotation_id']).values()
+        self.assertEqual(len(queryset), 1)
+
+    def Test_update_quotation_success_min_consumption_tax(self):
+
+        registration_params = {
+            'quotation_id': 11,
+            'client_id': 1,
+            'expiry': '見積有効期限',
+            'recipient': '宛名',
+            'title': '件名',
+            'delivery_time': '納期',
+            'delivery_location': '納入場所',
+            'delivery_method': '納入方法',
+            'payment_condition': '取引条件',
+            'remark': '備考',
+
+            'quotations_details_set-TOTAL_FORMS': 1,
+            'quotations_details_set-INITIAL_FORMS': 0,
+            'quotations_details_set-MIN_NUM_FORMS': 0,
+            'quotations_details_set-MAX_NUM_FORMS': 1000,
+            'quotations_details_set-0-merchandise': '商品名',
+            'quotations_details_set-0-merchandise_description': '商品明細',
+            'quotations_details_set-0-quantity': 1,
+            'quotations_details_set-0-unit': '単位',
+            'quotations_details_set-0-sales_unit_price': 100,
+            'quotations_details_set-0-purchase_unit_price': 90,
+
+            'file': ''
+        }
+
+        with freeze_time("2021-05-23 12:34:56"):
+            self.client.post(
+                reverse_lazy('quotation:registration'),
+                registration_params)
+
+        # 更新処理を実行
+
+        reference_params = {
+            'client_id': 1,
+            'expiry': '',
+            'recipient': '',
+            'title': '',
+            'delivery_time': '',
+            'delivery_location': '',
+            'delivery_method': '',
+            'payment_condition': '',
+            'remark': '',
+
+            'quotations_details_set-TOTAL_FORMS': 1,
+            'quotations_details_set-INITIAL_FORMS': 0,
+            'quotations_details_set-MIN_NUM_FORMS': 0,
+            'quotations_details_set-MAX_NUM_FORMS': 1000,
+            'quotations_details_set-0-merchandise': '',
+            'quotations_details_set-0-merchandise_description': '',
+            'quotations_details_set-0-quantity': 10,
+            'quotations_details_set-0-unit': '',
+            'quotations_details_set-0-sales_unit_price': -2147483647,
+            'quotations_details_set-0-purchase_unit_price': 0,
+
+            'file': ''
+        }
+
+        with freeze_time("2021-05-24 12:34:56"):
+            response = self.client.post(
+                reverse_lazy(
+                    'quotation:reference',
+                    kwargs={
+                        'pk': registration_params['quotation_id']}),
+                reference_params)
+
+        # リダイレクトを検証
+        self.assertRedirects(
+            response, reverse_lazy(
+                'quotation:reference', kwargs={
+                    'pk': registration_params['quotation_id']}))
+
+        # メッセージを検証
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(str(messages[1]), '更新が完了しました。')
+
+        # 各フィールドに変更されている値の正当性を検証
+        queryset = Quotations.objects.filter(
+            pk=registration_params['quotation_id']).values()
+        self.assertEqual(
+            queryset[0]['client_id_id'],
+            reference_params['client_id'])
+        self.assertEqual(queryset[0]['username_id'], 1)
+        self.assertEqual(
+            queryset[0]['created_datetime'], datetime(
+                2021, 5, 23, 12, 34, 56, tzinfo=timezone.utc))
+        self.assertEqual(
+            queryset[0]['updated_datetime'], datetime(
+                2021, 5, 24, 12, 34, 56, tzinfo=timezone.utc))
+        self.assertIsNone(queryset[0]['expiry'])
+        self.assertIsNone(queryset[0]['recipient'])
+        self.assertIsNone(queryset[0]['title'])
+        self.assertIsNone(queryset[0]['delivery_time'])
+        self.assertIsNone(queryset[0]['delivery_location'])
+        self.assertIsNone(queryset[0]['delivery_method'])
+        self.assertIsNone(queryset[0]['payment_condition'])
+        self.assertEqual(queryset[0]['consumption_tax'], -2147483647)
+        self.assertEqual(queryset[0]['remark'], reference_params['remark'])
+        self.assertTrue(queryset[0]['is_active'])
+
+        queryset = Quotations_details.objects.filter(
+            quotation_id=registration_params['quotation_id']).values()
+        self.assertEqual(len(queryset), 1)
+
 
 # 異常系
-
 
     def Test_update_quotation_failure_no_Requiredfield(self):
 
         registration_params = {
-            'quotation_id': 5,
+            'quotation_id': 12,
             'client_id': 1,
             'expiry': '見積有効期限',
             'recipient': '宛名',
@@ -1974,7 +2438,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
     def Test_update_quotation_failure_max(self):
 
         registration_params = {
-            'quotation_id': 6,
+            'quotation_id': 13,
             'client_id': 1,
             'expiry': '見積有効期限',
             'recipient': '宛名',
@@ -2246,7 +2710,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
     def Test_update_quotation_failure_min_integer(self):
 
         registration_params = {
-            'quotation_id': 1,
+            'quotation_id': 14,
             'client_id': 1,
             'expiry': '見積有効期限',
             'recipient': '宛名',
@@ -2398,7 +2862,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
     def Test_update_quotation_failure_no_integer(self):
 
         registration_params = {
-            'quotation_id': 1,
+            'quotation_id': 15,
             'client_id': 1,
             'expiry': '見積有効期限',
             'recipient': '宛名',
@@ -2550,7 +3014,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
     def Test_update_quotation_failure_FloatField(self):
 
         registration_params = {
-            'quotation_id': 1,
+            'quotation_id': 16,
             'client_id': 1,
             'expiry': '見積有効期限',
             'recipient': '宛名',
@@ -2699,21 +3163,293 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertTrue(queryset[0]['is_active'])
         self.assertEqual(len(queryset), 1)
 
+    def Test_update_quotation_failure_max_consumption_tax(self):
+
+        registration_params = {
+            'quotation_id': 17,
+            'client_id': 1,
+            'expiry': '見積有効期限',
+            'recipient': '宛名',
+            'title': '件名',
+            'delivery_time': '納期',
+            'delivery_location': '納入場所',
+            'delivery_method': '納入方法',
+            'payment_condition': '取引条件',
+            'remark': '備考',
+
+            'quotations_details_set-TOTAL_FORMS': 1,
+            'quotations_details_set-INITIAL_FORMS': 0,
+            'quotations_details_set-MIN_NUM_FORMS': 0,
+            'quotations_details_set-MAX_NUM_FORMS': 1000,
+            'quotations_details_set-0-merchandise': '商品名',
+            'quotations_details_set-0-merchandise_description': '商品明細',
+            'quotations_details_set-0-quantity': 1,
+            'quotations_details_set-0-unit': '単位',
+            'quotations_details_set-0-sales_unit_price': 100,
+            'quotations_details_set-0-purchase_unit_price': 90,
+
+            'file': ''
+        }
+
+        with freeze_time("2021-05-23 12:34:56"):
+            self.client.post(
+                reverse_lazy('quotation:registration'),
+                registration_params)
+
+        # 更新処理を実行
+
+        reference_params = {
+            'client_id': 1,
+            'expiry': '',
+            'recipient': '',
+            'title': '',
+            'delivery_time': '',
+            'delivery_location': '',
+            'delivery_method': '',
+            'payment_condition': '',
+            'remark': '',
+
+            'quotations_details_set-TOTAL_FORMS': 1,
+            'quotations_details_set-INITIAL_FORMS': 0,
+            'quotations_details_set-MIN_NUM_FORMS': 0,
+            'quotations_details_set-MAX_NUM_FORMS': 1000,
+            'quotations_details_set-0-merchandise': '商品名',
+            'quotations_details_set-0-merchandise_description': '商品明細',
+            'quotations_details_set-0-quantity': 20,
+            'quotations_details_set-0-unit': '単位',
+            'quotations_details_set-0-sales_unit_price': 1073741824,
+            'quotations_details_set-0-purchase_unit_price': 0,
+
+            'file': ''
+        }
+
+        with freeze_time("2021-05-24 12:34:56"):
+            response = self.client.post(
+                reverse_lazy(
+                    'quotation:reference',
+                    kwargs={
+                        'pk': registration_params['quotation_id']}),
+                reference_params)
+
+        # メッセージを検証
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(
+            str(messages[1]), '更新する消費税額を-2,147,483,647 から 2,147,483,647の範囲にしてください。')
+        self.assertEqual(str(messages[2]), '更新ができませんでした。')
+
+        # 更新されていないことを検証
+        queryset = Quotations.objects.filter(
+            pk=registration_params['quotation_id']).values()
+        self.assertEqual(
+            queryset[0]['client_id_id'],
+            registration_params['client_id'])
+        self.assertEqual(queryset[0]['username_id'], 1)
+        self.assertEqual(
+            queryset[0]['created_datetime'], datetime(
+                2021, 5, 23, 12, 34, 56, tzinfo=timezone.utc))
+        # self.assertEqual(Issue#2のバグ
+        #     queryset[0]['updated_datetime'], datetime(
+        #         2021, 5, 23, 12, 34, 56, tzinfo=timezone.utc))
+        # self.assertEqual(queryset[0]['expiry'], registration_params['expiry'])
+        # self.assertEqual(
+        #     queryset[0]['recipient'],
+        #     registration_params['recipient'])
+        # self.assertEqual(queryset[0]['title'], registration_params['title'])
+        # self.assertEqual(
+        #     queryset[0]['delivery_time'],
+        #     registration_params['delivery_time'])
+        # self.assertEqual(
+        #     queryset[0]['delivery_location'],
+        #     registration_params['delivery_location'])
+        # self.assertEqual(
+        #     queryset[0]['delivery_method'],
+        #     registration_params['delivery_method'])
+        # self.assertEqual(
+        #     queryset[0]['payment_condition'],
+        #     registration_params['payment_condition'])
+        # self.assertEqual(queryset[0]['consumption_tax'], 10)
+        # self.assertEqual(queryset[0]['remark'], registration_params['remark'])
+        # self.assertTrue(queryset[0]['is_active'])
+
+        queryset = Quotations_details.objects.filter(
+            quotation_id=registration_params['quotation_id']).values()
+        self.assertEqual(queryset[0]['item_id'], str(
+            registration_params['quotation_id']) + '_0')
+        self.assertEqual(
+            queryset[0]['merchandise'],
+            registration_params['quotations_details_set-0-merchandise'])
+        self.assertEqual(
+            queryset[0]['merchandise_description'],
+            registration_params['quotations_details_set-0-merchandise_description'])
+        self.assertEqual(
+            queryset[0]['quantity'],
+            registration_params['quotations_details_set-0-quantity'])
+        self.assertEqual(
+            queryset[0]['unit'],
+            registration_params['quotations_details_set-0-unit'])
+        self.assertEqual(
+            queryset[0]['sales_unit_price'],
+            registration_params['quotations_details_set-0-sales_unit_price'])
+        self.assertEqual(
+            queryset[0]['purchase_unit_price'],
+            registration_params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
+        self.assertTrue(queryset[0]['is_active'])
+        self.assertEqual(len(queryset), 1)
+
+    def Test_update_quotation_failure_min_consumption_tax(self):
+
+        registration_params = {
+            'quotation_id': 18,
+            'client_id': 1,
+            'expiry': '見積有効期限',
+            'recipient': '宛名',
+            'title': '件名',
+            'delivery_time': '納期',
+            'delivery_location': '納入場所',
+            'delivery_method': '納入方法',
+            'payment_condition': '取引条件',
+            'remark': '備考',
+
+            'quotations_details_set-TOTAL_FORMS': 1,
+            'quotations_details_set-INITIAL_FORMS': 0,
+            'quotations_details_set-MIN_NUM_FORMS': 0,
+            'quotations_details_set-MAX_NUM_FORMS': 1000,
+            'quotations_details_set-0-merchandise': '商品名',
+            'quotations_details_set-0-merchandise_description': '商品明細',
+            'quotations_details_set-0-quantity': 1,
+            'quotations_details_set-0-unit': '単位',
+            'quotations_details_set-0-sales_unit_price': 100,
+            'quotations_details_set-0-purchase_unit_price': 90,
+
+            'file': ''
+        }
+
+        with freeze_time("2021-05-23 12:34:56"):
+            self.client.post(
+                reverse_lazy('quotation:registration'),
+                registration_params)
+
+        # 更新処理を実行
+
+        reference_params = {
+            'client_id': 1,
+            'expiry': '',
+            'recipient': '',
+            'title': '',
+            'delivery_time': '',
+            'delivery_location': '',
+            'delivery_method': '',
+            'payment_condition': '',
+            'remark': '',
+
+            'quotations_details_set-TOTAL_FORMS': 1,
+            'quotations_details_set-INITIAL_FORMS': 0,
+            'quotations_details_set-MIN_NUM_FORMS': 0,
+            'quotations_details_set-MAX_NUM_FORMS': 1000,
+            'quotations_details_set-0-merchandise': '商品名',
+            'quotations_details_set-0-merchandise_description': '商品明細',
+            'quotations_details_set-0-quantity': 20,
+            'quotations_details_set-0-unit': '単位',
+            'quotations_details_set-0-sales_unit_price': -1073741824,
+            'quotations_details_set-0-purchase_unit_price': 0,
+
+            'file': ''
+        }
+
+        with freeze_time("2021-05-24 12:34:56"):
+            response = self.client.post(
+                reverse_lazy(
+                    'quotation:reference',
+                    kwargs={
+                        'pk': registration_params['quotation_id']}),
+                reference_params)
+
+        # メッセージを検証
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(
+            str(messages[1]), '更新する消費税額を-2,147,483,647 から 2,147,483,647の範囲にしてください。')
+        self.assertEqual(str(messages[2]), '更新ができませんでした。')
+
+        # 更新されていないことを検証
+        queryset = Quotations.objects.filter(
+            pk=registration_params['quotation_id']).values()
+        self.assertEqual(
+            queryset[0]['client_id_id'],
+            registration_params['client_id'])
+        self.assertEqual(queryset[0]['username_id'], 1)
+        self.assertEqual(
+            queryset[0]['created_datetime'], datetime(
+                2021, 5, 23, 12, 34, 56, tzinfo=timezone.utc))
+        # self.assertEqual(Issue#2のバグ
+        #     queryset[0]['updated_datetime'], datetime(
+        #         2021, 5, 23, 12, 34, 56, tzinfo=timezone.utc))
+        # self.assertEqual(queryset[0]['expiry'], registration_params['expiry'])
+        # self.assertEqual(
+        #     queryset[0]['recipient'],
+        #     registration_params['recipient'])
+        # self.assertEqual(queryset[0]['title'], registration_params['title'])
+        # self.assertEqual(
+        #     queryset[0]['delivery_time'],
+        #     registration_params['delivery_time'])
+        # self.assertEqual(
+        #     queryset[0]['delivery_location'],
+        #     registration_params['delivery_location'])
+        # self.assertEqual(
+        #     queryset[0]['delivery_method'],
+        #     registration_params['delivery_method'])
+        # self.assertEqual(
+        #     queryset[0]['payment_condition'],
+        #     registration_params['payment_condition'])
+        # self.assertEqual(queryset[0]['consumption_tax'], 10)
+        # self.assertEqual(queryset[0]['remark'], registration_params['remark'])
+        # self.assertTrue(queryset[0]['is_active'])
+
+        queryset = Quotations_details.objects.filter(
+            quotation_id=registration_params['quotation_id']).values()
+        self.assertEqual(queryset[0]['item_id'], str(
+            registration_params['quotation_id']) + '_0')
+        self.assertEqual(
+            queryset[0]['merchandise'],
+            registration_params['quotations_details_set-0-merchandise'])
+        self.assertEqual(
+            queryset[0]['merchandise_description'],
+            registration_params['quotations_details_set-0-merchandise_description'])
+        self.assertEqual(
+            queryset[0]['quantity'],
+            registration_params['quotations_details_set-0-quantity'])
+        self.assertEqual(
+            queryset[0]['unit'],
+            registration_params['quotations_details_set-0-unit'])
+        self.assertEqual(
+            queryset[0]['sales_unit_price'],
+            registration_params['quotations_details_set-0-sales_unit_price'])
+        self.assertEqual(
+            queryset[0]['purchase_unit_price'],
+            registration_params['quotations_details_set-0-purchase_unit_price'])
+        self.assertEqual(queryset[0]['order'], 0)
+        self.assertTrue(queryset[0]['is_active'])
+        self.assertEqual(len(queryset), 1)
 
 # Quotationsモデルの主キー（quotation_id）がAutoFieldのため、採番される値（登録される順番）を明確にする必要あり　そのため、テスト実行順を定義する
 # Djangoのテストは「test~」メソッドが実行されるたびにDBが初期化される。Djangoにテストメソッドとして認識されるのは、「test_list_quotation_success_ordering」のみであるため、各々「Test_list_quotation_~」メソッドが完了したあとも、DBの初期化処理は行われない
 
-
     def test_update_quotation_ordering(self):
         self.Test_update_quotation_success()
-        # self.Test_update_quotation_success_max()
+        self.Test_update_quotation_success_max()
+        self.Test_update_quotation_success_max_quantity()
         self.Test_update_quotation_success_min()
-        # self.Test_update_quotation_success_min_integer()
-        # self.Test_update_quotation_success_FullWidth_integer()
+        self.Test_update_quotation_success_min_integer()
+        self.Test_update_quotation_success_min_integer_quantity()
+        self.Test_update_quotation_success_FullWidth_integer()
         self.Test_update_quotation_success_special()
         self.Test_update_quotation_success_details_max()
+        self.Test_update_quotation_success_max_consumption_tax()
+        self.Test_update_quotation_success_min_consumption_tax()
         self.Test_update_quotation_failure_no_Requiredfield()
         self.Test_update_quotation_failure_max()
         # self.Test_update_quotation_failure_min_integer()
         # self.Test_update_quotation_failure_no_integer()
         # self.Test_update_quotation_failure_FloatField()
+        # self.Test_update_quotation_failure_max_consumption_tax()
+        # self.Test_update_quotation_failure_min_consumption_tax()
