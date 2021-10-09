@@ -1691,7 +1691,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
             registration_params['quotation_id']) + '_10').values()
         self.assertEqual(
             queryset[0]['item_id'], str(
-                registration_params['quotation_id']) + '_10')  # 9個目を超える場合は最後の24個目が登録採用される？
+                registration_params['quotation_id']) + '_10')
         self.assertEqual(
             queryset[0]['merchandise'],
             reference_params['quotations_details_set-10-merchandise'])
@@ -2776,328 +2776,24 @@ class Test_QuotationReferenceView(LoggedInTestCase):
                 reference_params)
 
         # 必須フォームフィールドが未入力によりエラーになることを検証
-        self.assertFormError(
+        self.assertFormsetError(
             response,
             'Quotations_details_form',
             0,
             'quantity',
             'この値は -2147483648 以上でなければなりません。')
-        self.assertFormError(
+        self.assertFormsetError(
             response,
             'Quotations_details_form',
             0,
             'sales_unit_price',
             'この値は -2147483648 以上でなければなりません。')
-        self.assertFormError(
+        self.assertFormsetError(
             response,
             'Quotations_details_form',
             0,
             'purchase_unit_price',
             'この値は -2147483648 以上でなければなりません。')
-
-        # メッセージを検証
-        messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[1]), '更新ができませんでした。')
-
-        # 更新されていないことを検証
-        queryset = Quotations.objects.filter(
-            pk=registration_params['quotation_id']).values()
-        self.assertEqual(
-            queryset[0]['client_id_id'],
-            registration_params['client_id'])
-        self.assertEqual(queryset[0]['username_id'], 1)
-        self.assertEqual(
-            queryset[0]['created_datetime'], datetime(
-                2021, 5, 23, 12, 34, 56, tzinfo=timezone.utc))
-        self.assertEqual(
-            queryset[0]['updated_datetime'], datetime(
-                2021, 5, 23, 12, 34, 56, tzinfo=timezone.utc))
-        self.assertEqual(queryset[0]['expiry'], registration_params['expiry'])
-        self.assertEqual(
-            queryset[0]['recipient'],
-            registration_params['recipient'])
-        self.assertEqual(queryset[0]['title'], registration_params['title'])
-        self.assertEqual(
-            queryset[0]['delivery_time'],
-            registration_params['delivery_time'])
-        self.assertEqual(
-            queryset[0]['delivery_location'],
-            registration_params['delivery_location'])
-        self.assertEqual(
-            queryset[0]['delivery_method'],
-            registration_params['delivery_method'])
-        self.assertEqual(
-            queryset[0]['payment_condition'],
-            registration_params['payment_condition'])
-        self.assertEqual(queryset[0]['consumption_tax'], 10)
-        self.assertEqual(queryset[0]['remark'], registration_params['remark'])
-        self.assertTrue(queryset[0]['is_active'])
-
-        queryset = Quotations_details.objects.filter(
-            quotation_id=registration_params['quotation_id']).values()
-        self.assertEqual(queryset[0]['item_id'], str(
-            registration_params['quotation_id']) + '_0')
-        self.assertEqual(
-            queryset[0]['merchandise'],
-            registration_params['quotations_details_set-0-merchandise'])
-        self.assertEqual(
-            queryset[0]['merchandise_description'],
-            registration_params['quotations_details_set-0-merchandise_description'])
-        self.assertEqual(
-            queryset[0]['quantity'],
-            registration_params['quotations_details_set-0-quantity'])
-        self.assertEqual(
-            queryset[0]['unit'],
-            registration_params['quotations_details_set-0-unit'])
-        self.assertEqual(
-            queryset[0]['sales_unit_price'],
-            registration_params['quotations_details_set-0-sales_unit_price'])
-        self.assertEqual(
-            queryset[0]['purchase_unit_price'],
-            registration_params['quotations_details_set-0-purchase_unit_price'])
-        self.assertEqual(queryset[0]['order'], 0)
-        self.assertTrue(queryset[0]['is_active'])
-        self.assertEqual(len(queryset), 1)
-
-    def Test_update_quotation_failure_no_integer(self):
-
-        registration_params = {
-            'quotation_id': 15,
-            'client_id': 1,
-            'expiry': '見積有効期限',
-            'recipient': '宛名',
-            'title': '件名',
-            'delivery_time': '納期',
-            'delivery_location': '納入場所',
-            'delivery_method': '納入方法',
-            'payment_condition': '取引条件',
-            'remark': '備考',
-
-            'quotations_details_set-TOTAL_FORMS': 1,
-            'quotations_details_set-INITIAL_FORMS': 0,
-            'quotations_details_set-MIN_NUM_FORMS': 0,
-            'quotations_details_set-MAX_NUM_FORMS': 1000,
-            'quotations_details_set-0-merchandise': '商品名',
-            'quotations_details_set-0-merchandise_description': '商品明細',
-            'quotations_details_set-0-quantity': 1,
-            'quotations_details_set-0-unit': '単位',
-            'quotations_details_set-0-sales_unit_price': 100,
-            'quotations_details_set-0-purchase_unit_price': 90,
-
-            'file': ''
-        }
-
-        with freeze_time("2021-05-23 12:34:56"):
-            self.client.post(
-                reverse_lazy('quotation:registration'),
-                registration_params)
-
-        # 更新処理を実行
-
-        reference_params = {
-            'client_id': 1,
-            'expiry': '',
-            'recipient': '',
-            'title': '',
-            'delivery_time': '',
-            'delivery_location': '',
-            'delivery_method': '',
-            'payment_condition': '',
-            'remark': '',
-
-            'quotations_details_set-TOTAL_FORMS': 1,
-            'quotations_details_set-INITIAL_FORMS': 0,
-            'quotations_details_set-MIN_NUM_FORMS': 0,
-            'quotations_details_set-MAX_NUM_FORMS': 1000,
-            'quotations_details_set-0-merchandise': '',
-            'quotations_details_set-0-merchandise_description': '',
-            'quotations_details_set-0-quantity': '数量',
-            'quotations_details_set-0-unit': '',
-            'quotations_details_set-0-sales_unit_price': '売上単価',
-            'quotations_details_set-0-purchase_unit_price': '仕入単価',
-
-            'file': ''
-        }
-
-        with freeze_time("2021-05-24 12:34:56"):
-            response = self.client.post(
-                reverse_lazy(
-                    'quotation:reference',
-                    kwargs={
-                        'pk': registration_params['quotation_id']}),
-                reference_params)
-
-        # 必須フォームフィールドが未入力によりエラーになることを検証
-        self.assertFormError(
-            response,
-            'Quotations_details_form',
-            0,
-            'quantity',
-            '整数を入力してください。')
-        self.assertFormError(
-            response,
-            'Quotations_details_form',
-            0,
-            'sales_unit_price',
-            '整数を入力してください。')
-        self.assertFormError(
-            response,
-            'Quotations_details_form',
-            0,
-            'purchase_unit_price',
-            '整数を入力してください。')
-
-        # メッセージを検証
-        messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[1]), '更新ができませんでした。')
-
-        # 更新されていないことを検証
-        queryset = Quotations.objects.filter(
-            pk=registration_params['quotation_id']).values()
-        self.assertEqual(
-            queryset[0]['client_id_id'],
-            registration_params['client_id'])
-        self.assertEqual(queryset[0]['username_id'], 1)
-        self.assertEqual(
-            queryset[0]['created_datetime'], datetime(
-                2021, 5, 23, 12, 34, 56, tzinfo=timezone.utc))
-        self.assertEqual(
-            queryset[0]['updated_datetime'], datetime(
-                2021, 5, 23, 12, 34, 56, tzinfo=timezone.utc))
-        self.assertEqual(queryset[0]['expiry'], registration_params['expiry'])
-        self.assertEqual(
-            queryset[0]['recipient'],
-            registration_params['recipient'])
-        self.assertEqual(queryset[0]['title'], registration_params['title'])
-        self.assertEqual(
-            queryset[0]['delivery_time'],
-            registration_params['delivery_time'])
-        self.assertEqual(
-            queryset[0]['delivery_location'],
-            registration_params['delivery_location'])
-        self.assertEqual(
-            queryset[0]['delivery_method'],
-            registration_params['delivery_method'])
-        self.assertEqual(
-            queryset[0]['payment_condition'],
-            registration_params['payment_condition'])
-        self.assertEqual(queryset[0]['consumption_tax'], 10)
-        self.assertEqual(queryset[0]['remark'], registration_params['remark'])
-        self.assertTrue(queryset[0]['is_active'])
-
-        queryset = Quotations_details.objects.filter(
-            quotation_id=registration_params['quotation_id']).values()
-        self.assertEqual(queryset[0]['item_id'], str(
-            registration_params['quotation_id']) + '_0')
-        self.assertEqual(
-            queryset[0]['merchandise'],
-            registration_params['quotations_details_set-0-merchandise'])
-        self.assertEqual(
-            queryset[0]['merchandise_description'],
-            registration_params['quotations_details_set-0-merchandise_description'])
-        self.assertEqual(
-            queryset[0]['quantity'],
-            registration_params['quotations_details_set-0-quantity'])
-        self.assertEqual(
-            queryset[0]['unit'],
-            registration_params['quotations_details_set-0-unit'])
-        self.assertEqual(
-            queryset[0]['sales_unit_price'],
-            registration_params['quotations_details_set-0-sales_unit_price'])
-        self.assertEqual(
-            queryset[0]['purchase_unit_price'],
-            registration_params['quotations_details_set-0-purchase_unit_price'])
-        self.assertEqual(queryset[0]['order'], 0)
-        self.assertTrue(queryset[0]['is_active'])
-        self.assertEqual(len(queryset), 1)
-
-    def Test_update_quotation_failure_FloatField(self):
-
-        registration_params = {
-            'quotation_id': 16,
-            'client_id': 1,
-            'expiry': '見積有効期限',
-            'recipient': '宛名',
-            'title': '件名',
-            'delivery_time': '納期',
-            'delivery_location': '納入場所',
-            'delivery_method': '納入方法',
-            'payment_condition': '取引条件',
-            'remark': '備考',
-
-            'quotations_details_set-TOTAL_FORMS': 1,
-            'quotations_details_set-INITIAL_FORMS': 0,
-            'quotations_details_set-MIN_NUM_FORMS': 0,
-            'quotations_details_set-MAX_NUM_FORMS': 1000,
-            'quotations_details_set-0-merchandise': '商品名',
-            'quotations_details_set-0-merchandise_description': '商品明細',
-            'quotations_details_set-0-quantity': 1,
-            'quotations_details_set-0-unit': '単位',
-            'quotations_details_set-0-sales_unit_price': 100,
-            'quotations_details_set-0-purchase_unit_price': 90,
-
-            'file': ''
-        }
-
-        with freeze_time("2021-05-23 12:34:56"):
-            self.client.post(
-                reverse_lazy('quotation:registration'),
-                registration_params)
-
-        # 更新処理を実行
-
-        reference_params = {
-            'client_id': 1,
-            'expiry': '',
-            'recipient': '',
-            'title': '',
-            'delivery_time': '',
-            'delivery_location': '',
-            'delivery_method': '',
-            'payment_condition': '',
-            'remark': '',
-
-            'quotations_details_set-TOTAL_FORMS': 1,
-            'quotations_details_set-INITIAL_FORMS': 0,
-            'quotations_details_set-MIN_NUM_FORMS': 0,
-            'quotations_details_set-MAX_NUM_FORMS': 1000,
-            'quotations_details_set-0-merchandise': '',
-            'quotations_details_set-0-merchandise_description': '',
-            'quotations_details_set-0-quantity': 0.1,
-            'quotations_details_set-0-unit': '',
-            'quotations_details_set-0-sales_unit_price': 0.2,
-            'quotations_details_set-0-purchase_unit_price': 0.3,
-
-            'file': ''
-        }
-
-        with freeze_time("2021-05-24 12:34:56"):
-            response = self.client.post(
-                reverse_lazy(
-                    'quotation:reference',
-                    kwargs={
-                        'pk': registration_params['quotation_id']}),
-                reference_params)
-
-        # 必須フォームフィールドが未入力によりエラーになることを検証
-        self.assertFormError(
-            response,
-            'Quotations_details_form',
-            0,
-            'quantity',
-            '整数を入力してください。')
-        self.assertFormError(
-            response,
-            'Quotations_details_form',
-            0,
-            'sales_unit_price',
-            '整数を入力してください。')
-        self.assertFormError(
-            response,
-            'Quotations_details_form',
-            0,
-            'purchase_unit_price',
-            '整数を入力してください。')
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
@@ -3166,7 +2862,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
     def Test_update_quotation_failure_max_consumption_tax(self):
 
         registration_params = {
-            'quotation_id': 17,
+            'quotation_id': 15,
             'client_id': 1,
             'expiry': '見積有効期限',
             'recipient': '宛名',
@@ -3247,29 +2943,29 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['created_datetime'], datetime(
                 2021, 5, 23, 12, 34, 56, tzinfo=timezone.utc))
-        # self.assertEqual(Issue#2のバグ
-        #     queryset[0]['updated_datetime'], datetime(
-        #         2021, 5, 23, 12, 34, 56, tzinfo=timezone.utc))
-        # self.assertEqual(queryset[0]['expiry'], registration_params['expiry'])
-        # self.assertEqual(
-        #     queryset[0]['recipient'],
-        #     registration_params['recipient'])
-        # self.assertEqual(queryset[0]['title'], registration_params['title'])
-        # self.assertEqual(
-        #     queryset[0]['delivery_time'],
-        #     registration_params['delivery_time'])
-        # self.assertEqual(
-        #     queryset[0]['delivery_location'],
-        #     registration_params['delivery_location'])
-        # self.assertEqual(
-        #     queryset[0]['delivery_method'],
-        #     registration_params['delivery_method'])
-        # self.assertEqual(
-        #     queryset[0]['payment_condition'],
-        #     registration_params['payment_condition'])
-        # self.assertEqual(queryset[0]['consumption_tax'], 10)
-        # self.assertEqual(queryset[0]['remark'], registration_params['remark'])
-        # self.assertTrue(queryset[0]['is_active'])
+        self.assertEqual(
+            queryset[0]['updated_datetime'], datetime(
+                2021, 5, 23, 12, 34, 56, tzinfo=timezone.utc))
+        self.assertEqual(queryset[0]['expiry'], registration_params['expiry'])
+        self.assertEqual(
+            queryset[0]['recipient'],
+            registration_params['recipient'])
+        self.assertEqual(queryset[0]['title'], registration_params['title'])
+        self.assertEqual(
+            queryset[0]['delivery_time'],
+            registration_params['delivery_time'])
+        self.assertEqual(
+            queryset[0]['delivery_location'],
+            registration_params['delivery_location'])
+        self.assertEqual(
+            queryset[0]['delivery_method'],
+            registration_params['delivery_method'])
+        self.assertEqual(
+            queryset[0]['payment_condition'],
+            registration_params['payment_condition'])
+        self.assertEqual(queryset[0]['consumption_tax'], 10)
+        self.assertEqual(queryset[0]['remark'], registration_params['remark'])
+        self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(
             quotation_id=registration_params['quotation_id']).values()
@@ -3300,7 +2996,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
     def Test_update_quotation_failure_min_consumption_tax(self):
 
         registration_params = {
-            'quotation_id': 18,
+            'quotation_id': 16,
             'client_id': 1,
             'expiry': '見積有効期限',
             'recipient': '宛名',
@@ -3381,29 +3077,29 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.assertEqual(
             queryset[0]['created_datetime'], datetime(
                 2021, 5, 23, 12, 34, 56, tzinfo=timezone.utc))
-        # self.assertEqual(Issue#2のバグ
-        #     queryset[0]['updated_datetime'], datetime(
-        #         2021, 5, 23, 12, 34, 56, tzinfo=timezone.utc))
-        # self.assertEqual(queryset[0]['expiry'], registration_params['expiry'])
-        # self.assertEqual(
-        #     queryset[0]['recipient'],
-        #     registration_params['recipient'])
-        # self.assertEqual(queryset[0]['title'], registration_params['title'])
-        # self.assertEqual(
-        #     queryset[0]['delivery_time'],
-        #     registration_params['delivery_time'])
-        # self.assertEqual(
-        #     queryset[0]['delivery_location'],
-        #     registration_params['delivery_location'])
-        # self.assertEqual(
-        #     queryset[0]['delivery_method'],
-        #     registration_params['delivery_method'])
-        # self.assertEqual(
-        #     queryset[0]['payment_condition'],
-        #     registration_params['payment_condition'])
-        # self.assertEqual(queryset[0]['consumption_tax'], 10)
-        # self.assertEqual(queryset[0]['remark'], registration_params['remark'])
-        # self.assertTrue(queryset[0]['is_active'])
+        self.assertEqual(
+            queryset[0]['updated_datetime'], datetime(
+                2021, 5, 23, 12, 34, 56, tzinfo=timezone.utc))
+        self.assertEqual(queryset[0]['expiry'], registration_params['expiry'])
+        self.assertEqual(
+            queryset[0]['recipient'],
+            registration_params['recipient'])
+        self.assertEqual(queryset[0]['title'], registration_params['title'])
+        self.assertEqual(
+            queryset[0]['delivery_time'],
+            registration_params['delivery_time'])
+        self.assertEqual(
+            queryset[0]['delivery_location'],
+            registration_params['delivery_location'])
+        self.assertEqual(
+            queryset[0]['delivery_method'],
+            registration_params['delivery_method'])
+        self.assertEqual(
+            queryset[0]['payment_condition'],
+            registration_params['payment_condition'])
+        self.assertEqual(queryset[0]['consumption_tax'], 10)
+        self.assertEqual(queryset[0]['remark'], registration_params['remark'])
+        self.assertTrue(queryset[0]['is_active'])
 
         queryset = Quotations_details.objects.filter(
             quotation_id=registration_params['quotation_id']).values()
@@ -3448,8 +3144,6 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         self.Test_update_quotation_success_min_consumption_tax()
         self.Test_update_quotation_failure_no_Requiredfield()
         self.Test_update_quotation_failure_max()
-        # self.Test_update_quotation_failure_min_integer()
-        # self.Test_update_quotation_failure_no_integer()
-        # self.Test_update_quotation_failure_FloatField()
-        # self.Test_update_quotation_failure_max_consumption_tax()
-        # self.Test_update_quotation_failure_min_consumption_tax()
+        self.Test_update_quotation_failure_min_integer()
+        self.Test_update_quotation_failure_max_consumption_tax()
+        self.Test_update_quotation_failure_min_consumption_tax()

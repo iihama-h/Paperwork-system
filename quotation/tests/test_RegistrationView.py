@@ -2127,109 +2127,9 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
             reverse_lazy('quotation:registration'), params)
 
         # フォームフィールドの異常値によりエラーになることを検証
-        # self.assertFormsetError(response, 'Quotations_details_form', 0, 'quantity', 'この値は -2147483648 以上でなければなりません。')
-        # self.assertFormsetError(response, 'Quotations_details_form', 0, 'sales_unit_price', 'この値は -2147483648 以上でなければなりません。')
-        # self.assertFormsetError(response, 'Quotations_details_form', 0, 'purchase_unit_price', 'この値は -2147483648 以上でなければなりません。')
-
-        # メッセージを検証
-        messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録ができませんでした。')
-
-        # DBに登録されていないことを検証
-        self.assertEqual(
-            Quotations.objects.filter(
-                quotation_id=params['quotation_id']).count(), 0)
-        self.assertEqual(Quotations_details.objects.filter(
-            quotation_id=params['quotation_id']).count(), 0)
-        self.assertEqual(Quotations_attached_file.objects.filter(
-            quotation_id=params['quotation_id']).count(), 0)
-
-    @freeze_time("2021-05-24 12:34:56")
-    def Test_create_quotation_failure_no_integer(self):
-
-        params = {
-            'quotation_id': 12,
-            'client_id': 1,
-            'expiry': '',
-            'recipient': '',
-            'title': '',
-            'delivery_time': '',
-            'delivery_location': '',
-            'delivery_method': '',
-            'payment_condition': '',
-            'remark': '',
-
-            'quotations_details_set-TOTAL_FORMS': 1,
-            'quotations_details_set-INITIAL_FORMS': 0,
-            'quotations_details_set-MIN_NUM_FORMS': 0,
-            'quotations_details_set-MAX_NUM_FORMS': 1000,
-            'quotations_details_set-0-merchandise': '商品名',
-            'quotations_details_set-0-merchandise_description': '',
-            'quotations_details_set-0-quantity': '数量',
-            'quotations_details_set-0-unit': '',
-            'quotations_details_set-0-sales_unit_price': '売上単価',
-            'quotations_details_set-0-purchase_unit_price': '仕入単価',
-
-            'file': ''
-        }
-
-        response = self.client.post(
-            reverse_lazy('quotation:registration'), params)
-
-        # フォームフィールドの異常値によりエラーになることを検証
-        # self.assertFormsetError(response, 'Quotations_details_form', 0, 'quantity', '整数を入力してください。')
-        # self.assertFormsetError(response, 'Quotations_details_form', 0, 'sales_unit_price', '整数を入力してください。')
-        # self.assertFormsetError(response, 'Quotations_details_form', 0, 'purchase_unit_price', '整数を入力してください。')
-
-        # メッセージを検証
-        messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録ができませんでした。')
-
-        # DBに登録されていないことを検証
-        self.assertEqual(
-            Quotations.objects.filter(
-                quotation_id=params['quotation_id']).count(), 0)
-        self.assertEqual(Quotations_details.objects.filter(
-            quotation_id=params['quotation_id']).count(), 0)
-        self.assertEqual(Quotations_attached_file.objects.filter(
-            quotation_id=params['quotation_id']).count(), 0)
-
-    @freeze_time("2021-05-24 12:34:56")
-    def Test_create_quotation_failure_FloatField(self):
-
-        params = {
-            'quotation_id': 12,
-            'client_id': 1,
-            'expiry': '',
-            'recipient': '',
-            'title': '',
-            'delivery_time': '',
-            'delivery_location': '',
-            'delivery_method': '',
-            'payment_condition': '',
-            'remark': '',
-
-            'quotations_details_set-TOTAL_FORMS': 1,
-            'quotations_details_set-INITIAL_FORMS': 0,
-            'quotations_details_set-MIN_NUM_FORMS': 0,
-            'quotations_details_set-MAX_NUM_FORMS': 1000,
-            'quotations_details_set-0-merchandise': '商品名',
-            'quotations_details_set-0-merchandise_description': '',
-            'quotations_details_set-0-quantity': 0.1,
-            'quotations_details_set-0-unit': '',
-            'quotations_details_set-0-sales_unit_price': 0.2,
-            'quotations_details_set-0-purchase_unit_price': 0.3,
-
-            'file': ''
-        }
-
-        response = self.client.post(
-            reverse_lazy('quotation:registration'), params)
-
-        # フォームフィールドの異常値によりエラーになることを検証
-        # self.assertFormsetError(response, 'Quotations_details_form', 0, 'quantity', '整数を入力してください。')
-        # self.assertFormsetError(response, 'Quotations_details_form', 0, 'sales_unit_price', '整数を入力してください。')
-        # self.assertFormsetError(response, 'Quotations_details_form', 0, 'purchase_unit_price', '整数を入力してください。')
+        self.assertFormsetError(response, 'Quotations_details_form', 0, 'quantity', 'この値は -2147483648 以上でなければなりません。')
+        self.assertFormsetError(response, 'Quotations_details_form', 0, 'sales_unit_price', 'この値は -2147483648 以上でなければなりません。')
+        self.assertFormsetError(response, 'Quotations_details_form', 0, 'purchase_unit_price', 'この値は -2147483648 以上でなければなりません。')
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
@@ -2382,9 +2282,9 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(str(messages[1]), '登録ができませんでした。')
 
         # DBに登録されていないことを検証
-        # self.assertEqual( Issue#2のバグ
-        #     Quotations.objects.filter(
-        #         quotation_id=params['quotation_id']).count(), 0)
+        self.assertEqual(
+            Quotations.objects.filter(
+                quotation_id=params['quotation_id']).count(), 0)
         self.assertEqual(Quotations_details.objects.filter(
             quotation_id=params['quotation_id']).count(), 0)
         self.assertEqual(Quotations_attached_file.objects.filter(
@@ -2429,9 +2329,9 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.assertEqual(str(messages[1]), '登録ができませんでした。')
 
         # DBに登録されていないことを検証
-        # self.assertEqual( Issue#2のバグ
-        #     Quotations.objects.filter(
-        #         quotation_id=params['quotation_id']).count(), 0)
+        self.assertEqual(
+            Quotations.objects.filter(
+                quotation_id=params['quotation_id']).count(), 0)
         self.assertEqual(Quotations_details.objects.filter(
             quotation_id=params['quotation_id']).count(), 0)
         self.assertEqual(Quotations_attached_file.objects.filter(
@@ -2454,10 +2354,8 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         self.Test_create_quotation_success_min_consumption_tax()
         self.Test_create_quotation_failure_no_Requiredfield()
         self.Test_create_quotation_failure_max()
-        # self.Test_create_quotation_failure_min_integer()
-        # self.Test_create_quotation_failure_no_integer()
-        # self.Test_create_quotation_failure_FloatField()
+        self.Test_create_quotation_failure_min_integer()
         self.Test_create_quotation_failure_not_client_id()
         self.Test_create_quotation_failure_client_id_not_active()
-        # self.Test_create_quotation_failure_max_consumption_tax()
-        # self.Test_create_quotation_failure_min_consumption_tax()
+        self.Test_create_quotation_failure_max_consumption_tax()
+        self.Test_create_quotation_failure_min_consumption_tax()
