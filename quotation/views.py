@@ -105,9 +105,9 @@ class RegistrationView(LoginRequiredMixin, generic.CreateView):
                 messages.error(
                     self.request,
                     '登録する消費税額を-2,147,483,647 から 2,147,483,647の範囲にしてください。')
-                self.form_invalid(form)
+                return self.form_invalid(form)
         else:
-            self.form_invalid(form)
+            return self.form_invalid(form)
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -349,9 +349,9 @@ class ReferenceView(LoginRequiredMixin, generic.UpdateView):
                 messages.error(
                     self.request,
                     '更新する消費税額を-2,147,483,647 から 2,147,483,647の範囲にしてください。')
-                self.form_invalid(form)
+                return self.form_invalid(form)
         else:
-            self.form_invalid(form)
+            return self.form_invalid(form)
         return super().form_valid(form)
 
     def form_invalid(self, form):
