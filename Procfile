@@ -1,1 +1,1 @@
-web: gunicorn paperwork-system.wsgi
+web: gunicorn paperwork_system.wsgi
