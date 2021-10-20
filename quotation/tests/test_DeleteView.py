@@ -8,6 +8,7 @@ from django.core.files.base import ContentFile
 import os
 from shutil import rmtree
 from django.conf import settings
+from paperwork_system import constant_values
 
 from ..models import Quotations, Quotations_details, Quotations_attached_file, Clients
 
@@ -80,7 +81,7 @@ class Test_QuotationDeleteView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[1]), '削除が完了しました。')
+        self.assertEqual(str(messages[1]), constant_values.MESSAGE_0003)
 
         # 物理削除されたことを検証
         self.assertEqual(

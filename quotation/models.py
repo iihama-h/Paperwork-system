@@ -1,7 +1,7 @@
 from django.db import models
 from client.models import Clients
 from accounts.models import Users
-from paperwork_system.constant_values import QUOTATION＿EXPIRY
+from paperwork_system.constant_values import QUOTATION_EXPIRY
 
 
 class Quotations_manager(models.Manager):
@@ -37,7 +37,7 @@ class Quotations(models.Model):
         max_length=255,
         blank=True,
         null=True,
-        default=QUOTATION＿EXPIRY)
+        default=QUOTATION_EXPIRY)
     recipient = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
     delivery_time = models.CharField(max_length=255, blank=True, null=True)

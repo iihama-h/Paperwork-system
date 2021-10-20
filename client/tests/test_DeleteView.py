@@ -1,6 +1,7 @@
 from paperwork_system.tests.LoggedInTestCase import LoggedInTestCase
 from django.urls import reverse_lazy
 from django.contrib.messages import get_messages
+from paperwork_system import constant_values
 
 from ..models import Clients
 
@@ -41,7 +42,7 @@ class Test_ClientDeleteView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '削除が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0003)
 
         # 論理削除されたことを検証
         self.assertFalse(Clients.objects.get(pk=client.pk).is_active)

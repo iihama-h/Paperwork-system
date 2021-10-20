@@ -4,8 +4,8 @@ def make_composite_key(main_table_key, sub_model):
 
     if sub_model_query_set:
         key = []
-        for recode in sub_model_query_set:
-            value = recode.pk.split('_')
+        for record in sub_model_query_set:
+            value = record.pk.split('_')
             key.append(int(value[-1]))
         return str(main_table_key) + '_' + (str(max(key) + 1))
     else:

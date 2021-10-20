@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Clients
 from django.db.models import Q
+from paperwork_system import constant_values
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +23,7 @@ class RegistrationView(LoginRequiredMixin, generic.CreateView):
             'Client client_id:{} has been created by Users.id:{}'.format(
                 model_instance.client_id,
                 self.request.user.id))
-        messages.success(self.request, '登録が完了しました。')
+        messages.success(self.request, constant_values.MESSAGE_0001)
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -30,7 +31,7 @@ class RegistrationView(LoginRequiredMixin, generic.CreateView):
             'Client could not be registered by Users.id:{} \r\n{}'.format(
                 self.request.user.id,
                 self.request.POST))
-        messages.error(self.request, '登録ができませんでした。')
+        messages.error(self.request, constant_values.ERR_MESSAGE_0001)
         return super().form_invalid(form)
 
 
@@ -103,7 +104,7 @@ class ReferenceView(LoginRequiredMixin, generic.UpdateView):
             'Client client_id:{} has been updated by Users.id:{}'.format(
                 model_instance.client_id,
                 self.request.user.id))
-        messages.success(self.request, '更新が完了しました。')
+        messages.success(self.request, constant_values.MESSAGE_0002)
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -111,7 +112,7 @@ class ReferenceView(LoginRequiredMixin, generic.UpdateView):
             'Client could not be updated by Users.id:{} \r\n{}'.format(
                 self.request.user.id,
                 self.request.POST))
-        messages.error(self.request, '更新ができませんでした。')
+        messages.error(self.request, constant_values.ERR_MESSAGE_0002)
         return super().form_invalid(form)
 
 
@@ -129,5 +130,5 @@ class DeleteView(LoginRequiredMixin, generic.UpdateView):
             'Client client_id:{} has been deleted by Users.id:{}'.format(
                 model_instance.client_id,
                 self.request.user.id))
-        messages.success(self.request, '削除が完了しました。')
+        messages.success(self.request, constant_values.MESSAGE_0003)
         return super().form_valid(form)

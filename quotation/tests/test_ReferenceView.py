@@ -8,6 +8,7 @@ from django.core.files.base import ContentFile
 import os
 from shutil import rmtree
 from django.conf import settings
+from paperwork_system import constant_values
 
 from ..models import Quotations, Quotations_details, Quotations_attached_file, Clients
 
@@ -114,7 +115,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[1]), '更新が完了しました。')
+        self.assertEqual(str(messages[1]), constant_values.MESSAGE_0002)
 
         # 各フィールドに変更されている値の正当性を検証
         queryset = Quotations.objects.filter(
@@ -285,7 +286,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[1]), '更新が完了しました。')
+        self.assertEqual(str(messages[1]), constant_values.MESSAGE_0002)
 
         # 各フィールドに変更されている値の正当性を検証
         queryset = Quotations.objects.filter(
@@ -486,7 +487,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[1]), '更新が完了しました。')
+        self.assertEqual(str(messages[1]), constant_values.MESSAGE_0002)
 
         # 各フィールドに変更されている値の正当性を検証
         queryset = Quotations.objects.filter(
@@ -618,7 +619,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[1]), '更新が完了しました。')
+        self.assertEqual(str(messages[1]), constant_values.MESSAGE_0002)
 
         # 各フィールドに変更されている値の正当性を検証
         queryset = Quotations.objects.filter(
@@ -724,7 +725,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[1]), '更新が完了しました。')
+        self.assertEqual(str(messages[1]), constant_values.MESSAGE_0002)
 
         # 各フィールドに変更されている値の正当性を検証
         queryset = Quotations.objects.filter(
@@ -852,7 +853,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[1]), '更新が完了しました。')
+        self.assertEqual(str(messages[1]), constant_values.MESSAGE_0002)
 
         # 各フィールドに変更されている値の正当性を検証
         queryset = Quotations.objects.filter(
@@ -980,7 +981,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[1]), '更新が完了しました。')
+        self.assertEqual(str(messages[1]), constant_values.MESSAGE_0002)
 
         # 各フィールドに変更されている値の正当性を検証
         queryset = Quotations.objects.filter(
@@ -1102,7 +1103,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[1]), '更新が完了しました。')
+        self.assertEqual(str(messages[1]), constant_values.MESSAGE_0002)
 
         # 各フィールドに変更されている値の正当性を検証
         queryset = Quotations.objects.filter(
@@ -1411,7 +1412,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[1]), '更新が完了しました。')
+        self.assertEqual(str(messages[1]), constant_values.MESSAGE_0002)
 
         # 各フィールドに変更されている値の正当性を検証
         queryset = Quotations.objects.filter(
@@ -2160,7 +2161,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[1]), '更新が完了しました。')
+        self.assertEqual(str(messages[1]), constant_values.MESSAGE_0002)
 
         # 各フィールドに変更されている値の正当性を検証
         queryset = Quotations.objects.filter(
@@ -2266,7 +2267,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[1]), '更新が完了しました。')
+        self.assertEqual(str(messages[1]), constant_values.MESSAGE_0002)
 
         # 各フィールドに変更されている値の正当性を検証
         queryset = Quotations.objects.filter(
@@ -2372,8 +2373,8 @@ class Test_QuotationReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[1]), '顧客フィールドには顧客IDを入力してください。')
-        self.assertEqual(str(messages[2]), '更新ができませんでした。')
+        self.assertEqual(str(messages[1]), constant_values.ERR_MESSAGE_0004)
+        self.assertEqual(str(messages[2]), constant_values.ERR_MESSAGE_0002)
 
         # 更新されていないことを検証
         queryset = Quotations.objects.filter(
@@ -2645,7 +2646,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[1]), '更新ができませんでした。')
+        self.assertEqual(str(messages[1]), constant_values.ERR_MESSAGE_0002)
 
         # 更新されていないことを検証
         queryset = Quotations.objects.filter(
@@ -2797,7 +2798,7 @@ class Test_QuotationReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[1]), '更新ができませんでした。')
+        self.assertEqual(str(messages[1]), constant_values.ERR_MESSAGE_0002)
 
         # 更新されていないことを検証
         queryset = Quotations.objects.filter(
@@ -2930,8 +2931,8 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(
-            str(messages[1]), '更新する消費税額を-2,147,483,647 から 2,147,483,647の範囲にしてください。')
-        self.assertEqual(str(messages[2]), '更新ができませんでした。')
+            str(messages[1]), constant_values.ERR_MESSAGE_0006)
+        self.assertEqual(str(messages[2]), constant_values.ERR_MESSAGE_0002)
 
         # 更新されていないことを検証
         queryset = Quotations.objects.filter(
@@ -3064,8 +3065,8 @@ class Test_QuotationReferenceView(LoggedInTestCase):
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(
-            str(messages[1]), '更新する消費税額を-2,147,483,647 から 2,147,483,647の範囲にしてください。')
-        self.assertEqual(str(messages[2]), '更新ができませんでした。')
+            str(messages[1]), constant_values.ERR_MESSAGE_0006)
+        self.assertEqual(str(messages[2]), constant_values.ERR_MESSAGE_0002)
 
         # 更新されていないことを検証
         queryset = Quotations.objects.filter(

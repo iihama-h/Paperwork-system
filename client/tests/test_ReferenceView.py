@@ -4,6 +4,7 @@ from datetime import datetime
 from django.utils import timezone
 from freezegun import freeze_time
 from django.contrib.messages import get_messages
+from paperwork_system import constant_values
 
 from ..models import Clients
 
@@ -64,7 +65,7 @@ class Test_ClientReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '更新が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0002)
 
         # 各フィールドに変更されている値の正当性を検証
         self.assertEqual(
@@ -180,7 +181,7 @@ class Test_ClientReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '更新が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0002)
 
         # 各フィールドに変更されている値の正当性を検証
         self.assertEqual(
@@ -286,7 +287,7 @@ class Test_ClientReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '更新が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0002)
 
         # 各フィールドに変更されている値の正当性を検証
         self.assertEqual(
@@ -361,7 +362,7 @@ class Test_ClientReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '更新が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0002)
 
         # 各フィールドに変更されている値の正当性を検証
         self.assertEqual(
@@ -434,7 +435,7 @@ class Test_ClientReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '更新が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0002)
 
         # 各フィールドに変更されている値の正当性を検証
         self.assertEqual(Clients.objects.get(pk=client.pk).capital, 2147483647)
@@ -489,7 +490,7 @@ class Test_ClientReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '更新が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0002)
 
         # 各フィールドに変更されている値の正当性を検証
         self.assertEqual(
@@ -599,7 +600,7 @@ class Test_ClientReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '更新ができませんでした。')
+        self.assertEqual(str(messages[0]), constant_values.ERR_MESSAGE_0002)
 
         # 更新されていないことを検証
         self.assertEqual(Clients.objects.get(pk=client.pk).name, '顧客名')
@@ -744,7 +745,7 @@ class Test_ClientReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '更新ができませんでした。')
+        self.assertEqual(str(messages[0]), constant_values.ERR_MESSAGE_0002)
 
         # 更新されていないことを検証
         self.assertEqual(Clients.objects.get(pk=client.pk).name, '顧客名')
@@ -847,7 +848,7 @@ class Test_ClientReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '更新ができませんでした。')
+        self.assertEqual(str(messages[0]), constant_values.ERR_MESSAGE_0002)
 
         # 更新されていないことを検証
         self.assertEqual(Clients.objects.get(pk=client.pk).name, '顧客名')
@@ -938,7 +939,7 @@ class Test_ClientReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '更新ができませんでした。')
+        self.assertEqual(str(messages[0]), constant_values.ERR_MESSAGE_0002)
 
         # 更新されていないことを検証
         self.assertEqual(Clients.objects.get(pk=client.pk).name, '顧客名')
@@ -1029,7 +1030,7 @@ class Test_ClientReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '更新ができませんでした。')
+        self.assertEqual(str(messages[0]), constant_values.ERR_MESSAGE_0002)
 
         # 更新されていないことを検証
         self.assertEqual(Clients.objects.get(pk=client.pk).name, '顧客名')
@@ -1113,7 +1114,7 @@ class Test_ClientReferenceView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '更新ができませんでした。')
+        self.assertEqual(str(messages[0]), constant_values.ERR_MESSAGE_0002)
 
         # 更新されていないことを検証
         self.assertEqual(Clients.objects.get(pk=client.pk).name, '顧客名')

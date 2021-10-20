@@ -26,7 +26,7 @@ class Test_ClientListView(LoggedInTestCase):
             name_kana='アイｕｅｏ'
         )
 
-        #検索処理を実行
+        # 検索処理を実行
         response = self.client.post(reverse_lazy('client:list'), params)
 
         # 検索フォームに検索値が格納されている検証
@@ -72,7 +72,7 @@ class Test_ClientListView(LoggedInTestCase):
             'name_kana': ''
         }
 
-        #検索処理を実行
+        # 検索処理を実行
         response = self.client.post(reverse_lazy('client:list'), params)
 
         # 検索フォームに検索値が格納されている検証
@@ -113,7 +113,7 @@ class Test_ClientListView(LoggedInTestCase):
             'name_kana': 'アイウエオ'
         }
 
-        #検索処理を実行
+        # 検索処理を実行
         response = self.client.post(reverse_lazy('client:list'), params)
 
         # 検索フォームに検索値が格納されている検証
@@ -167,7 +167,7 @@ class Test_ClientListView(LoggedInTestCase):
             'name_kana': ''
         }
 
-        #検索処理を実行
+        # 検索処理を実行
         response = self.client.post(reverse_lazy('client:list'), params)
 
         # 検索フォームに検索値が格納されている検証
@@ -209,7 +209,7 @@ class Test_ClientListView(LoggedInTestCase):
             'name_kana': ''
         }
 
-        #検索処理を実行
+        # 検索処理を実行
         response = self.client.post(reverse_lazy('client:list'), params)
 
         # 検索フォームに検索値が格納されている検証
@@ -250,7 +250,7 @@ class Test_ClientListView(LoggedInTestCase):
             'name_kana': 'イウ'
         }
 
-        #検索処理を実行
+        # 検索処理を実行
         response = self.client.post(reverse_lazy('client:list'), params)
 
         # 検索フォームに検索値が格納されている検証
@@ -285,7 +285,7 @@ class Test_ClientListView(LoggedInTestCase):
             is_active=False
         )
 
-        #検索処理を実行
+        # 検索処理を実行
         response = self.client.post(reverse_lazy('client:list'), params)
 
         # 検索フォームに検索値が格納されている検証
@@ -318,7 +318,7 @@ class Test_ClientListView(LoggedInTestCase):
             'name_kana': 'アイウエオ'
         }
 
-        #検索処理を実行
+        # 検索処理を実行
         response = self.client.post(reverse_lazy('client:list'), params)
 
         # 検索フォームに検索値が格納されている検証
@@ -351,7 +351,7 @@ class Test_ClientListView(LoggedInTestCase):
             'name_kana': 'アイウエo'
         }
 
-        #検索処理を実行
+        # 検索処理を実行
         response = self.client.post(reverse_lazy('client:list'), params)
 
         # 検索フォームに検索値が格納されている検証

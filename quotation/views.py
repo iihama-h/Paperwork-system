@@ -15,6 +15,7 @@ from django.conf import settings
 from .lib.quotation_excel.create_excel import create_excel
 from django.shortcuts import redirect
 from quotation.lib import calculation_module
+from paperwork_system import constant_values
 
 logger = logging.getLogger(__name__)
 
@@ -49,7 +50,7 @@ class RegistrationView(LoginRequiredMixin, generic.CreateView):
 
         if not Clients.objects.get(
                 pk=self.request.POST.get('client_id')).is_active:
-            messages.error(self.request, '顧客が存在しませんでした。')
+            messages.error(self.request, constant_values.ERR_MESSAGE_0003)
             return self.form_invalid(form)
 
         i = 0
@@ -90,7 +91,7 @@ class RegistrationView(LoginRequiredMixin, generic.CreateView):
                     quotation.save()
 
                     if self.request.POST.get(
-                            'file') != '':  # 空のfailがリクエストされた際は処理を行わない
+                            'file') != '':  # 空のファイルがリクエストされた際は処理を行わない
                         Quotations_attached_file.objects.create(
                             quotation_id=quotation,
                             file=self.request.FILES['file'],
@@ -100,11 +101,9 @@ class RegistrationView(LoginRequiredMixin, generic.CreateView):
                     'Quotation quotation_id:{} has been created by Users.id:{}'.format(
                         quotation.quotation_id,
                         self.request.user.id))
-                messages.success(self.request, '登録が完了しました。')
+                messages.success(self.request, constant_values.MESSAGE_0001)
             else:
-                messages.error(
-                    self.request,
-                    '登録する消費税額を-2,147,483,647 から 2,147,483,647の範囲にしてください。')
+                messages.error(self.request, constant_values.ERR_MESSAGE_0005)
                 return self.form_invalid(form)
         else:
             return self.form_invalid(form)
@@ -114,15 +113,15 @@ class RegistrationView(LoginRequiredMixin, generic.CreateView):
         try:
             if not Clients.objects.filter(
                     pk=self.request.POST.get('client_id')).exists():
-                messages.error(self.request, '顧客が存在しませんでした。')
+                messages.error(self.request, constant_values.ERR_MESSAGE_0003)
         except ValueError:
-            messages.error(self.request, '顧客フィールドには顧客IDを入力してください。')
+            messages.error(self.request, constant_values.ERR_MESSAGE_0004)
 
         logger.error(
             'Quotation could not be registered by Users.id:{} \r\n{}'.format(
                 self.request.user.id,
                 self.request.POST))
-        messages.error(self.request, '登録ができませんでした。')
+        messages.error(self.request, constant_values.ERR_MESSAGE_0001)
 
         return super().form_invalid(form)
 
@@ -290,7 +289,7 @@ class ReferenceView(LoginRequiredMixin, generic.UpdateView):
 
         if not Clients.objects.get(
                 pk=self.request.POST.get('client_id')).is_active:
-            messages.error(self.request, '顧客が存在しませんでした。')
+            messages.error(self.request, constant_values.ERR_MESSAGE_0003)
             return self.form_invalid(form)
 
         i = 0
@@ -334,7 +333,7 @@ class ReferenceView(LoginRequiredMixin, generic.UpdateView):
                     if Quotations_attached_file.objects.filter(quotation_id=self.kwargs['pk']).first(
                     ) is None:  # Quotations_attached_fileが登録されていない場合は処理を行わない
                         if self.request.POST.get(
-                                'file') != '':  # 空のfailがリクエストされた際は処理を行わない
+                                'file') != '':  # 空のファイルがリクエストされた際は処理を行わない
                             Quotations_attached_file.objects.create(
                                 quotation_id=quotation,
                                 file=self.request.FILES['file'],
@@ -344,11 +343,9 @@ class ReferenceView(LoginRequiredMixin, generic.UpdateView):
                     'Quotation quotation_id:{} has been updated by Users.id:{}'.format(
                         quotation.quotation_id,
                         self.request.user.id))
-                messages.success(self.request, '更新が完了しました。')
+                messages.success(self.request, constant_values.MESSAGE_0002)
             else:
-                messages.error(
-                    self.request,
-                    '更新する消費税額を-2,147,483,647 から 2,147,483,647の範囲にしてください。')
+                messages.error(self.request, constant_values.ERR_MESSAGE_0006)
                 return self.form_invalid(form)
         else:
             return self.form_invalid(form)
@@ -358,15 +355,15 @@ class ReferenceView(LoginRequiredMixin, generic.UpdateView):
         try:
             if not Clients.objects.filter(
                     pk=self.request.POST.get('client_id')).exists():
-                messages.error(self.request, '顧客が存在しませんでした。')
+                messages.error(self.request, constant_values.ERR_MESSAGE_0003)
         except ValueError:
-            messages.error(self.request, '顧客フィールドには顧客IDを入力してください。')
+            messages.error(self.request, constant_values.ERR_MESSAGE_0004)
 
         logger.error(
             'Quotation could not be updated by Users.id:{} \r\n{}'.format(
                 self.request.user.id,
                 self.request.POST))
-        messages.error(self.request, '更新ができませんでした。')
+        messages.error(self.request, constant_values.ERR_MESSAGE_0002)
 
         return super().form_invalid(form)
 
@@ -406,5 +403,5 @@ class DeleteView(LoginRequiredMixin, generic.DeleteView):
             'Quotation quotation_id:{} has been deleted by Users.id:{}'.format(
                 self.kwargs['pk'],
                 self.request.user.id))
-        messages.success(self.request, '削除が完了しました。')
+        messages.success(self.request, constant_values.MESSAGE_0003)
         return result

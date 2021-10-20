@@ -4,6 +4,7 @@ from datetime import datetime
 from django.utils import timezone
 from freezegun import freeze_time
 from django.contrib.messages import get_messages
+from paperwork_system import constant_values
 
 from ..models import Clients
 
@@ -38,7 +39,7 @@ class Test_ClientRegistrationView(
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0001)
 
         # DBへの登録を検証
         self.assertEqual(Clients.objects.filter(name='顧客名').count(), 1)
@@ -91,7 +92,7 @@ class Test_ClientRegistrationView(
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0001)
 
         # DBへの登録を検証
         self.assertEqual(
@@ -145,7 +146,7 @@ class Test_ClientRegistrationView(
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0001)
 
         # DBへの登録を検証
         self.assertEqual(Clients.objects.filter(name='a').count(), 1)
@@ -198,7 +199,7 @@ class Test_ClientRegistrationView(
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0001)
 
         # DBへの登録を検証
         self.assertEqual(Clients.objects.filter(name='b').count(), 1)
@@ -238,7 +239,7 @@ class Test_ClientRegistrationView(
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0001)
 
         # DBへの登録を検証
         self.assertEqual(Clients.objects.filter(name='b').count(), 1)
@@ -272,7 +273,7 @@ class Test_ClientRegistrationView(
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0001)
 
         # DBへの登録を検証
         self.assertEqual(
@@ -327,7 +328,7 @@ class Test_ClientRegistrationView(
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録ができませんでした。')
+        self.assertEqual(str(messages[0]), constant_values.ERR_MESSAGE_0001)
 
         # DBに登録されていないことを検証
         self.assertNotEqual(Clients.objects.filter(name='').count(), 1)
@@ -414,7 +415,7 @@ class Test_ClientRegistrationView(
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録ができませんでした。')
+        self.assertEqual(str(messages[0]), constant_values.ERR_MESSAGE_0001)
 
         # DBに登録されていないことを検証
         self.assertNotEqual(
@@ -466,7 +467,7 @@ class Test_ClientRegistrationView(
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録ができませんでした。')
+        self.assertEqual(str(messages[0]), constant_values.ERR_MESSAGE_0001)
 
         # DBに登録されていないことを検証
         self.assertNotEqual(Clients.objects.filter(name='c').count(), 1)
@@ -503,7 +504,7 @@ class Test_ClientRegistrationView(
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録ができませんでした。')
+        self.assertEqual(str(messages[0]), constant_values.ERR_MESSAGE_0001)
 
         # DBに登録されていないことを検証
         self.assertNotEqual(Clients.objects.filter(name='d').count(), 1)
@@ -540,7 +541,7 @@ class Test_ClientRegistrationView(
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録ができませんでした。')
+        self.assertEqual(str(messages[0]), constant_values.ERR_MESSAGE_0001)
 
         # DBに登録されていないことを検証
         self.assertNotEqual(Clients.objects.filter(name='e').count(), 1)
@@ -570,7 +571,7 @@ class Test_ClientRegistrationView(
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録ができませんでした。')
+        self.assertEqual(str(messages[0]), constant_values.ERR_MESSAGE_0001)
 
         # DBに登録されていないことを検証
         self.assertNotEqual(Clients.objects.filter(name='f').count(), 1)

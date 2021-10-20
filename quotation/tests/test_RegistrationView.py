@@ -9,6 +9,7 @@ import os
 from shutil import rmtree
 from django.conf import settings
 from django.core.files import File
+from paperwork_system import constant_values
 
 from ..models import Quotations, Quotations_details, Quotations_attached_file, Clients
 
@@ -73,7 +74,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0001)
 
         # DBへの登録を検証
         self.assertEqual(
@@ -207,7 +208,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0001)
 
         # DBへの登録を検証
         self.assertEqual(
@@ -368,7 +369,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0001)
 
         # DBへの登録を検証
         self.assertEqual(
@@ -459,7 +460,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0001)
 
         # DBへの登録を検証
         self.assertEqual(
@@ -529,7 +530,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0001)
 
         # DBへの登録を検証
         self.assertEqual(
@@ -620,7 +621,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0001)
 
         # DBへの登録を検証
         self.assertEqual(
@@ -711,7 +712,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0001)
 
         # DBへの登録を検証
         self.assertEqual(
@@ -796,7 +797,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0001)
 
         # DBへの登録を検証
         self.assertEqual(
@@ -1068,7 +1069,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0001)
 
         # DBへの登録を検証
         self.assertEqual(
@@ -1709,7 +1710,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0001)
 
         # DBへの登録を検証
         self.assertEqual(
@@ -1800,7 +1801,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録が完了しました。')
+        self.assertEqual(str(messages[0]), constant_values.MESSAGE_0001)
 
         # DBへの登録を検証
         self.assertEqual(
@@ -1895,8 +1896,8 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '顧客フィールドには顧客IDを入力してください。')
-        self.assertEqual(str(messages[1]), '登録ができませんでした。')
+        self.assertEqual(str(messages[0]), constant_values.ERR_MESSAGE_0004)
+        self.assertEqual(str(messages[1]), constant_values.ERR_MESSAGE_0001)
 
         # DBに登録されていないことを検証
         self.assertEqual(
@@ -2083,7 +2084,7 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録ができませんでした。')
+        self.assertEqual(str(messages[0]), constant_values.ERR_MESSAGE_0001)
 
         # DBに登録されていないことを検証
         self.assertEqual(
@@ -2127,13 +2128,28 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
             reverse_lazy('quotation:registration'), params)
 
         # フォームフィールドの異常値によりエラーになることを検証
-        self.assertFormsetError(response, 'Quotations_details_form', 0, 'quantity', 'この値は -2147483648 以上でなければなりません。')
-        self.assertFormsetError(response, 'Quotations_details_form', 0, 'sales_unit_price', 'この値は -2147483648 以上でなければなりません。')
-        self.assertFormsetError(response, 'Quotations_details_form', 0, 'purchase_unit_price', 'この値は -2147483648 以上でなければなりません。')
+        self.assertFormsetError(
+            response,
+            'Quotations_details_form',
+            0,
+            'quantity',
+            'この値は -2147483648 以上でなければなりません。')
+        self.assertFormsetError(
+            response,
+            'Quotations_details_form',
+            0,
+            'sales_unit_price',
+            'この値は -2147483648 以上でなければなりません。')
+        self.assertFormsetError(
+            response,
+            'Quotations_details_form',
+            0,
+            'purchase_unit_price',
+            'この値は -2147483648 以上でなければなりません。')
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '登録ができませんでした。')
+        self.assertEqual(str(messages[0]), constant_values.ERR_MESSAGE_0001)
 
         # DBに登録されていないことを検証
         self.assertEqual(
@@ -2185,8 +2201,8 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '顧客フィールドには顧客IDを入力してください。')
-        self.assertEqual(str(messages[1]), '登録ができませんでした。')
+        self.assertEqual(str(messages[0]), constant_values.ERR_MESSAGE_0004)
+        self.assertEqual(str(messages[1]), constant_values.ERR_MESSAGE_0001)
 
         # DBに登録されていないことを検証
         self.assertEqual(
@@ -2231,8 +2247,8 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
 
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), '顧客が存在しませんでした。')
-        self.assertEqual(str(messages[1]), '登録ができませんでした。')
+        self.assertEqual(str(messages[0]), constant_values.ERR_MESSAGE_0003)
+        self.assertEqual(str(messages[1]), constant_values.ERR_MESSAGE_0001)
 
         # DBに登録されていないことを検証
         self.assertEqual(
@@ -2278,8 +2294,8 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(
-            str(messages[0]), '登録する消費税額を-2,147,483,647 から 2,147,483,647の範囲にしてください。')
-        self.assertEqual(str(messages[1]), '登録ができませんでした。')
+            str(messages[0]), constant_values.ERR_MESSAGE_0005)
+        self.assertEqual(str(messages[1]), constant_values.ERR_MESSAGE_0001)
 
         # DBに登録されていないことを検証
         self.assertEqual(
@@ -2325,8 +2341,8 @@ class Test_QuotationRegistrationView(LoggedInTestCase):
         # メッセージを検証
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(
-            str(messages[0]), '登録する消費税額を-2,147,483,647 から 2,147,483,647の範囲にしてください。')
-        self.assertEqual(str(messages[1]), '登録ができませんでした。')
+            str(messages[0]), constant_values.ERR_MESSAGE_0005)
+        self.assertEqual(str(messages[1]), constant_values.ERR_MESSAGE_0001)
 
         # DBに登録されていないことを検証
         self.assertEqual(
